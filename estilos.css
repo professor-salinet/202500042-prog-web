@@ -1,0 +1,19 @@
+div {
+    display: inline-flex;
+}
+
+#div_hora {
+    color: aqua;
+}
+
+#div_minuto {
+    color: blue;
+}
+
+#div_segundo {
+    color: brown;
+}
+
+.vermelho {
+    color: red;
+}

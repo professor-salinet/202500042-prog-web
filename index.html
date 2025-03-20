@@ -1,0 +1,34 @@
+<!-- A linha abaixo define o documento como html -->
+<!DOCTYPE html>
+<!-- <a linha abaixo inicia a tag html e define o idioma para inglês (en) -->
+<html lang="en">
+    <!-- A linha abaixo inicia a tag head (cabeçalho) -->
+<head>
+    <!-- a linha abaixo declara a tag meta com o atributo charset, que é a defininição do tipo de caracter da página, ou seja characteres estão definidos para UTF-8 (padrão internacional) -->
+    <meta charset="UTF-8">
+    <!-- A linha abaixo declara a tag meta com os atributos: name (que define o tipo de visualização da tela) e content (que define o valor do tipo de visualização, ou seja, a largura (width) será de acordo com a largura do dispositivo (device), onde a escala inicial será de 1 (1 por 1)) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- A linha abaixo define o título do documento -->
+    <title>Do While</title>
+    <!-- A linha abaixo importa o arquivo estilos.css, que vai receber os estilos css da página -->
+    <link rel="stylesheet" href="./estilos.css">
+    <!-- A linha abaixo encerra a tag head (cabeçalho) -->
+</head>
+<!-- A linha abaixo inicia a tag body (corpo da página) -->
+<body>
+    <!-- A linha abaixo cria a tag de rótulo (label) para o checkbox -->
+    <label for="cbxMarcarTempo" class="vermelho">Marcar Tempo?</label>
+    <!-- A linha abaixo cria o checkbox que vai servir para exibir ou não o tempo na página -->
+    <input type="checkbox" id="cbxMarcarTempo" />
+    <!-- A linha abaixo insere uma quebra de linha na página -->
+    <br /> 
+    <!-- A linha abaixo insere um elemento pra podermos inserir a hora, sem prejudicar todo texto da página, sem prejudicar outros elementos da página -->
+    <div id="div_hora"></div>
+    <div id="div_minuto"></div>
+    <div id="div_segundo"></div>
+    <!-- A linha abaixo "chama" o arquivo dowhile.js para ser compilado nesta página -->
+    <script src="./dowhile.js"></script>
+    <!-- A linha abaixo encerra a tag body (corpo da página) -->
+</body>
+<!-- A linha abaixo encerra a tag html -->
+</html>
