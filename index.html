@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Img</title>
+    <link rel="stylesheet" href="./bootstrap-5.3.3-dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <div id="divImgTemp" style="z-index: 0;"></div>
+    <img src="./imagem.png" id="img" style="z-index: 1;" />
+
+    <button onmousedown="girarHorario()" id="btnGirarHorario" style="position: sticky; z-index: 2;">Girar horário</button><br/>
+    <button onclick="girarAntiHorario()" id="btnGirarAntiHorario" style="position: sticky; z-index: 3;">Girar anti-horário</button><br/>
+
+    <label for="txtGraus" style="position: sticky; z-index: 4;">Graus:</label>
+    <input type="number" id="txtGraus" style="position: sticky; z-index: 5;" /><br/>
+
+    <button onclick="moverDireita()" id="btnMoverDireita" style="position: sticky; z-index: 6;">Mover para direita</button><br/>
+    <button onclick="moverEsquerda()" id="btnMoverEsquerda" style="position: sticky; z-index: 7;">Mover para esquerda</button><br/>
+    <button onclick="moverBaixo()" id="btnMoverBaixo" style="position: sticky; z-index: 8;">Mover para baixo</button><br/>
+    <button onclick="moverCima()" id="btnMoverCima" style="position: sticky; z-index: 9;">Mover para cima</button><br/>
+    <button onclick="moverAleatorio()" id="btnMoverAleatorio" style="position: sticky; z-index: 10;">Mover aleatório</button><br/>
+    <button onclick="centralizar()" id="btnCentralizar" style="position: sticky; z-index: 10;">Centralizar</button><br/>
+
+    <label for="txtPixels" style="position: sticky; z-index: 11;">Pixels:</label>
+    <input type="number" id="txtPixels" style="position: sticky; z-index: 12;" /><br/>
+
+    <script src="./bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+    <script src="./img.js"></script>
+</body>
+</html>
