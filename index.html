@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixelart</title>
+    <style>
+        body {
+            margin: 0px;
+        }
+
+        #divNariz {
+            border: 2px solid #ffa200;
+            border-top-color: transparent;
+            border-left-color: transparent;
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            margin-top: -60px;
+            margin-bottom: 45px;
+            transform: rotate(135deg);
+        }
+
+        #divBoca {
+            border: 2px solid #ff0000;
+            border-top-color: transparent;
+            border-left-color: transparent;
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            margin-top: -60px;
+            margin-bottom: 5px;
+            transform: rotate(45deg);
+        }
+
+        #divCabeca {
+            background-color: #ffffff;
+            border: 2px solid #00831a;
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            margin-top: -29px;
+        }
+
+        #divTronco {
+            background-color: #2b00ff;
+            width: 2px;
+            height: 300px;
+        }
+
+        #divBoneco {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #divPernas, #divBracos, #divMaos, #divPes, #divOlhos, #divOrelhas, #divCabelos {
+            display: flex;
+            flex-direction: row;
+        }
+
+        #divCabelo1Esquerda, #divCabelo1Direita {
+            border: 2px solid #fffb00;
+            border-top-color: transparent;
+            border-left-color: transparent;
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            margin-top: 20px;
+            transform: rotate(-135deg);
+        }
+
+        #divCabeloCentral {
+            background-color: #fff700;
+            width: 2px;
+            height: 50px;
+            margin-top: 20px;
+        }
+
+        #divOrelhaEsquerda {
+            background-color: #ffffff;
+            border: 2px solid #ff00f2;
+            width: 5px;
+            height: 15px;
+            border-radius: 100%;
+            margin-right: 52px;
+            margin-top: -55px;
+        }
+
+        #divOrelhaDireita {
+            background-color: #ffffff;
+            border: 2px solid #ff00ee;
+            width: 5px;
+            height: 15px;
+            border-radius: 100%;
+            margin-left: 52px;
+            margin-top: -55px;
+        }
+
+        #divOlhoEsquerdo {
+            background-color: #ffffff;
+            border: 2px solid #0800ff;
+            width: 5px;
+            height: 5px;
+            border-radius: 100%;
+            margin-right: 20px;
+            margin-top: -70px;
+        }
+
+        #divOlhoDireito {
+            background-color: #ffffff;
+            border: 2px solid #1100ff;
+            width: 5px;
+            height: 5px;
+            border-radius: 100%;
+            margin-left: 20px;
+            margin-top: -70px;
+        }
+
+        #divPeEsquerdo {
+            background-color: #ffffff;
+            border: 2px solid #00f2ff;
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            margin-right: 33px;
+            margin-top: 15px;
+        }
+
+        #divPeDireito {
+            background-color: #ffffff;
+            border: 2px solid #00f2ff;
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            margin-left: 33px;
+            margin-top: 15px;
+        }
+
+        #divMaoEsquerda {
+            background-color: #ffffff;
+            border: 2px solid #ff7c7c;
+            width: 10px;
+            height: 10px;
+            margin-top: -183px;
+            border-radius: 100%;
+            margin-right: 33px;
+        }
+
+        #divMaoDireita {
+            background-color: #ffffff;
+            border: 2px solid #ff7c7c;
+            width: 10px;
+            height: 10px;
+            margin-top: -183px;
+            border-radius: 100%;
+            margin-left: 33px;
+        }
+
+        #divBracoEsquerdo {
+            background-color: #000000;
+            width: 50px;
+            height: 2px;
+            transform: rotate(135deg);
+            margin-top: -200px;
+            margin-right: -7px;
+        }
+
+        #divBracoDireito {
+            background-color: #000000;
+            width: 50px;
+            height: 2px;
+            transform: rotate(45deg);
+            margin-top: -200px;
+            margin-left: -7px;
+        }
+
+        #divPernaEsquerda {
+            background-color: #000000;
+            width: 50px;
+            height: 2px;
+            transform: rotate(135deg);
+            margin-top: 15px;
+            margin-right: -7px;
+        }
+
+        #divPernaDireita {
+            background-color: #000000;
+            width: 50px;
+            height: 2px;
+            transform: rotate(45deg);
+            margin-top: 15px;
+            margin-left: -7px;
+        }
+    </style>
+</head>
+<body>
+    <div id="divBoneco">
+        <div id="divCabelos">
+            <div id="divCabelo1Esquerda"></div>
+            <div id="divCabeloCentral"></div>
+            <div id="divCabelo1Direita"></div>
+        </div>
+        <div id="divCabeca"></div>
+        <div id="divBoca"></div>
+        <div id="divOlhos">
+            <div id="divOlhoEsquerdo"></div>
+            <div id="divOlhoDireito"></div>
+        </div>
+        <div id="divOrelhas">
+            <div id="divOrelhaEsquerda"></div>
+            <div id="divOrelhaDireita"></div>
+        </div>
+        <div id="divNariz"></div>
+        <div id="divTronco"></div>
+        <div id="divBracos">
+            <div id="divBracoEsquerdo"></div>
+            <div id="divBracoDireito"></div>
+        </div>
+        <div id="divMaos">
+            <div id="divMaoEsquerda"></div>
+            <div id="divMaoDireita"></div>
+        </div>
+        <div id="divPernas">
+            <div id="divPernaEsquerda"></div>
+            <div id="divPernaDireita"></div>
+        </div>
+        <div id="divPes">
+            <div id="divPeEsquerdo"></div>
+            <div id="divPeDireito"></div>
+        </div>
+    </div>
+</body>
+</html>
