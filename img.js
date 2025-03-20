@@ -1,36 +1,36 @@
-var btnGirarHorario = document.getElementById("btnGirarHorario");
-var btnGirarAntiHorario = document.getElementById("btnGirarAntiHorario");
-var btnMoverDireita = document.getElementById("btnMoverDireita");
-var btnMoverEsquerda = document.getElementById("btnMoverEsquerda");
-var btnMoverBaixo = document.getElementById("btnMoverBaixo");
-var btnMoverCima = document.getElementById("btnMoverCima");
-var btnMoverAleatorio = document.getElementById("btnMoverAleatorio");
+var btnGirarHorario = document.getElementById("btnGirarHorario"); // declaração da variável btnGirarHorario que recebe o elemento com id btnGirarHorario
+var btnGirarAntiHorario = document.getElementById("btnGirarAntiHorario"); // declaração da variável btnGirarAntiHorario que recebe o elemento com id btnGirarAntiHorario
+var btnMoverDireita = document.getElementById("btnMoverDireita"); // declaração da variável btnMoverDireita que recebe o elemento com id btnMoverDireita
+var btnMoverEsquerda = document.getElementById("btnMoverEsquerda"); // declaração da variável btnMoverEsquerda que recebe o elemento com id btnMoverEsquerda
+var btnMoverBaixo = document.getElementById("btnMoverBaixo"); // declaração da variável btnMoverBaixo que recebe o elemento com id btnMoverBaixo
+var btnMoverCima = document.getElementById("btnMoverCima"); // declaração da variável btnMoverCima que recebe o elemento com id btnMoverCima
+var btnMoverAleatorio = document.getElementById("btnMoverAleatorio"); // declaração da variável btnMoverAleatorio que recebe o elemento com id btnMoverAleatorio
 
-var img = document.getElementById("img");
+var img = document.getElementById("img"); // declaração da variável img que recebe o elemento com id img
 
-var divImgTemp = document.getElementById("divImgTemp");
-divImgTemp.style.display = "none";
-divImgTemp.style.position = "absolute";
+var divImgTemp = document.getElementById("divImgTemp"); // declaração da variável divImgTemp que recebe o elemento com id divImgTemp
+divImgTemp.style.display = "none"; // define o valor "none" do atributo "display" do estilo da divImgTemp
+divImgTemp.style.position = "absolute"; // define o valor "absolute" do atributo "position" do estilo da divImgTemp
 
-img.style.position = "absolute";
-img.style.display = "block";
+img.style.position = "absolute"; // define o valor "absolute" do atributo "position" do estilo da img
+img.style.display = "block"; // define o valor "block" do atributo "display" do estilo da img
 
-var larguraTelaTotal = window.innerWidth;
-var alturaTelaTotal = window.innerHeight;
+var larguraTelaTotal = window.innerWidth; // declaração da variável larguraTelaTotal que recebe o tamanho total da largura da página
+var alturaTelaTotal = window.innerHeight; // declaração da variável alturaTelaTotal que recebe o tamanho total da altura da página
 
-var centroTelaHorizontal = parseInt(larguraTelaTotal / 2);
-var centroTelaVertical = parseInt(alturaTelaTotal / 2);
+var centroTelaHorizontal = parseInt(larguraTelaTotal / 2); // declaração da variável centroTelaHorizontal que recebe, convertido em número inteiro, o valor da variável larguraTelaTotal dividido por dois
+var centroTelaVertical = parseInt(alturaTelaTotal / 2); // declaração da variável centroTelaVertical que recebe, convertido em número inteiro, o valor da variável alturaTelaTotal dividido por dois
 
-var larguraImg = 0;
-var alturaImg = 0;
+var larguraImg = 0; // declaração da variável larguraImg que recebe o valor 0
+var alturaImg = 0; // declaração da variável alturaImg que recebe o valor 0
 
-window.onload = centralizar;
+window.onload = centralizar; // comando que programa, ao carregar a janela/página e todos os seus respectivos elementos (somente após isso), chamar a função centralizar
 
-var medida = "px";
+var medida = "px"; // declaração da variável medida que recebe o valor "px", para uso nas variáveis que precisarão adicionar o texto "px" ao final dos valores das mesmas
 
-function centralizar() {
-    larguraTelaTotal = window.innerWidth;
-    alturaTelaTotal = window.innerHeight;
+function centralizar() { // declaração da função centralizar, que vai centralizar a imagem na página
+    larguraTelaTotal = window.innerWidth; // atribuição do valor "window.innerWidth" (largura total da página na tela) na variável larguraTelaTotal
+    alturaTelaTotal = window.innerHeight; // atribuição do valor "window.innerHeight" (altura total da página na tela) na variável alturaTelaTotal
     
     centroTelaHorizontal = parseInt(larguraTelaTotal / 2);
     centroTelaVertical = parseInt(alturaTelaTotal / 2);
@@ -61,28 +61,31 @@ function verificarLimitesImg() {
     if (imgStyleTop < 0) {
         img.style.top = 0 + medida;
     }
+
+    let divImgStyleLeft = parseInt(divImgTemp.style.left.replace(medida, ""));
+    let divImgStyleTop = parseInt(divImgTemp.style.top.replace(medida, ""));
+
+    if ((divImgStyleLeft + larguraImg) >= larguraTelaTotal) {
+        divImgTemp.style.left = (larguraTelaTotal - larguraImg) + medida;
+    }
+
+    if ((divImgStyleTop + alturaImg) >= alturaTelaTotal) {
+        divImgTemp.style.top = (alturaTelaTotal - alturaImg) + medida;
+    }
+
+    if (divImgStyleLeft < 0) {
+        divImgTemp.style.left = 0 + medida;
+    }
+
+    if (divImgStyleTop < 0) {
+        divImgTemp.style.top = 0 + medida;
+    }
 }
 
-// img.classList.add("img"); // esta linha adiciona a classe img (bootstrap) ao elemento img
 
 img.classList.add("bg-dark"); // esta linha adiciona a classe "bg-dark" (cor escura do bootstrap) ao elemento img
 
-// img.classList.add("img-fluid"); // esta linha adiciona a classe "img-fluid" (responsividade do bootstrap) ao elemento img
-
-// img.classList.add("img-thumbnail"); // esta linha adiciona a classe "img-thumbnail" (modo "cartão" do bootstrap) ao elemento img
-
-
-// img.classList.add("float-end"); // esta linha adiciona a classe "float-end" (alinhar a direita do bootstrap) ao elemento img
-
-// img.classList.add("float-start"); // esta linha adiciona a classe "float-start" (alinhar a esquerda do bootstrap) ao elemento img
-
 img.classList.add("rounded"); // esta linha adiciona a classe "rounded" (arredondar cantos do bootstrap) ao elemento img
-
-// img.classList.add("mx-auto"); // esta linha adiciona a classe "mx-auto" (margem automática do bootstrap) ao elemento img
-
-// img.classList.add("d-block"); // esta linha adiciona a classe "d-block" (exibir em bloco [display: block;] do bootstrap) ao elemento img
-
-// img.classList.remove("img"); // esta linha remove a classe img (bootstrap) ao elemento img
 
 var rotacao = 0;
 
@@ -211,11 +214,8 @@ function moverBaixo() {
 }
 
 function moverAleatorio() {
-    let posicaoHorizontalAleatoria = Math.random() * 1000;
-    let posicaoVerticalAleatoria = Math.random() * 1000;
-
-    console.log("posicaoHorizontalAleatoria:", posicaoHorizontalAleatoria);
-    console.log("posicaoVerticalAleatoria:", posicaoVerticalAleatoria);
+    let posicaoHorizontalAleatoria = Math.random() * larguraTelaTotal;
+    let posicaoVerticalAleatoria = Math.random() * alturaTelaTotal;
 
     if (posicaoHorizontalAleatoria > larguraTelaTotal) {
         posicaoHorizontalAleatoria = larguraTelaTotal - (larguraImg / 2);
@@ -230,44 +230,39 @@ function moverAleatorio() {
     verificarLimitesImg();
 }
 
-btnGirarHorario.addEventListener('keydown', function(event) {
-    console.log("keyCode:", event.keyCode); // mostra no console o código da tecla teclada.
-    let codigoTecla = event.keyCode; // declaração da variável codigoTecla, a qual receberá o códigoda tecla teclada.
-    if (codigoTecla == 13 || codigoTecla == 32) { // se teclou/pressionou (e se manter pressionado) Enter ou Barra de Espaço
-        girarHorario(); // executar a função girarHorario().
-    }
-});
-
 window.addEventListener('keydown', function(event) {
     // console.log("keyCode:", event.keyCode); // mostra no console o código da tecla teclada.
-    // console.log("abaixo do keycode");
-    // console.log("document.activeElement:", document.activeElement);
+    // console.log("document.activeElement:", document.activeElement); // mostra o elemento ativo/focado/clicado da página
     let elementoAtivo = document.activeElement;
     let codigoTecla = event.keyCode; // declaração da variável codigoTecla, a qual receberá o códigoda tecla teclada.
-    switch (codigoTecla) {
-        case 37:
+    switch (codigoTecla) { // ativa o "interruptor" que tiver o código da tecla respectivo
+        case 37: // tecla Seta pra Esquerda
             moverEsquerda();
             break;
-        case 38:
+        case 38: // tecla Seta pra Cima
             moverCima();
             break;
-        case 39:
+        case 39: // tecla Seta pra Direita
             moverDireita();
             break;
-        case 40:
+        case 40: // tecla Seta pra Baixo
             moverBaixo();
             break;
-        case 65:
+        case 65: // tecla A
             girarAntiHorario();
             break;
-        case 72:
+        case 67: // Tecla C
+            centralizar();
+            break;
+        case 72: // tecla H
             girarHorario();
             break;
-        case 77:
+        case 77: // tecla M
             moverAleatorio();
             break;
-        case 13:
-            switch (elementoAtivo.id) {
+        case 13: // tecla Enter (múltiplos cases)
+        case 32: // tecla Barra de Espaço (múltiplos cases)
+            switch (elementoAtivo.id) { // ativa o "interruptor" que tiver o id respectivo
                 case "btnGirarHorario":
                     girarHorario();
                     break;
@@ -351,6 +346,8 @@ var elementoTemp;
 
             divImgTemp.style.left = (posicaoMouseX - (larguraImg / 2)) + medida;
             divImgTemp.style.top = (posicaoMouseY - (alturaImg / 2)) + medida;
+
+            verificarLimitesImg();
 
             return false;
         } catch (e) {
