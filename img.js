@@ -1,3 +1,5 @@
+var cbxModoFantasma = document.getElementById("cbxModoFantasma");
+
 var btnGirarHorario = document.getElementById("btnGirarHorario"); // declaração da variável btnGirarHorario que recebe o elemento com id btnGirarHorario
 var btnGirarAntiHorario = document.getElementById("btnGirarAntiHorario"); // declaração da variável btnGirarAntiHorario que recebe o elemento com id btnGirarAntiHorario
 var btnMoverDireita = document.getElementById("btnMoverDireita"); // declaração da variável btnMoverDireita que recebe o elemento com id btnMoverDireita
@@ -33,7 +35,7 @@ var medida = "px"; // declaração da variável medida que recebe o valor "px", 
 function centralizar() { // declaração da função centralizar, que vai centralizar a imagem na página
     larguraTelaTotal = window.innerWidth; // atribuição do valor "window.innerWidth" (largura total da página na tela) na variável larguraTelaTotal
     alturaTelaTotal = window.innerHeight; // atribuição do valor "window.innerHeight" (altura total da página na tela) na variável alturaTelaTotal
-    
+
     centroTelaHorizontal = parseInt(larguraTelaTotal / 2);
     centroTelaVertical = parseInt(alturaTelaTotal / 2);
 
@@ -217,13 +219,13 @@ function moverAleatorio() {
     let posicaoHorizontalAleatoria = Math.random() * larguraTelaTotal;
     let posicaoVerticalAleatoria = Math.random() * alturaTelaTotal;
 
-    if (posicaoHorizontalAleatoria > larguraTelaTotal) {
-        posicaoHorizontalAleatoria = larguraTelaTotal - (larguraImg / 2);
-    }
+    // if (posicaoHorizontalAleatoria > larguraTelaTotal) {
+    //     posicaoHorizontalAleatoria = larguraTelaTotal - (larguraImg / 2);
+    // }
 
-    if (posicaoVerticalAleatoria > alturaTelaTotal) {
-        posicaoVerticalAleatoria = alturaTelaTotal - (alturaImg / 2);
-    }
+    // if (posicaoVerticalAleatoria > alturaTelaTotal) {
+    //     posicaoVerticalAleatoria = alturaTelaTotal - (alturaImg / 2);
+    // }
 
     img.style.top = posicaoVerticalAleatoria + medida;
     img.style.left = posicaoHorizontalAleatoria + medida;
@@ -311,6 +313,7 @@ var elementoTemp;
                 imgTemp.style.transform = "rotate(" + rotacao + "deg)";
                 imgTemp.classList.add("bg-dark");
                 imgTemp.classList.add("rounded");
+                imgTemp.style.opacity = img.style.opacity;
                 divImgTemp.appendChild(imgTemp);
                 divImgTemp.style.display = "block";
                 return false;
@@ -337,6 +340,7 @@ var elementoTemp;
                 event.pageX = event.clientX +
                 (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
                 (doc && doc.clientLeft || body && body.clientLeft || 0);
+
                 event.pageY = event.clientY +
                 (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
                 (doc && doc.clientTop  || body && body.clientTop  || 0 );
@@ -361,8 +365,8 @@ var elementoTemp;
         try {
             if (elementoClicado) {
                 if (elementoClicado.tagName.toLowerCase() == "img") {
-                    img.style.left = posicaoMouseX - (larguraImg / 2) + medida;
-                    img.style.top = posicaoMouseY - (alturaImg / 2) + medida;
+                    img.style.left = (posicaoMouseX - (larguraImg / 2)) + medida;
+                    img.style.top = (posicaoMouseY - (alturaImg / 2)) + medida;
                     img.style.display = "block";
                     verificarLimitesImg();
                 }
@@ -375,3 +379,11 @@ var elementoTemp;
         }
     }
 })();
+
+function modoFantasma() {
+    if (cbxModoFantasma.checked) {
+        img.style.opacity = 0.1;
+    } else {
+        img.style.opacity = 1;
+    }
+}
