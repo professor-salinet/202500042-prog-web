@@ -6,6 +6,8 @@ var btnMoverBaixo = document.getElementById("btnMoverBaixo"); // declaração da
 var btnMoverCima = document.getElementById("btnMoverCima"); // declaração da variável btnMoverCima que recebe o elemento com id btnMoverCima
 var btnMoverAleatorio = document.getElementById("btnMoverAleatorio"); // declaração da variável btnMoverAleatorio que recebe o elemento com id btnMoverAleatorio
 
+var rotacao = 0;
+
 var img = document.getElementById("img"); // declaração da variável img que recebe o elemento com id img
 
 var divImgTemp = document.getElementById("divImgTemp"); // declaração da variável divImgTemp que recebe o elemento com id divImgTemp
@@ -86,8 +88,6 @@ function verificarLimitesImg() {
 img.classList.add("bg-dark"); // esta linha adiciona a classe "bg-dark" (cor escura do bootstrap) ao elemento img
 
 img.classList.add("rounded"); // esta linha adiciona a classe "rounded" (arredondar cantos do bootstrap) ao elemento img
-
-var rotacao = 0;
 
 function girarHorario() {
     let txtGraus = document.getElementById("txtGraus");
@@ -308,6 +308,7 @@ var elementoTemp;
                 elementoClicado.style.display = "none";
                 let imgTemp = document.createElement('img'); // <img />
                 imgTemp.src = "./" + elementoClicado.src.replace(/^.*[\\/]/, ''); // <img src="./imagem.png" />
+                imgTemp.style.transform = "rotate(" + rotacao + "deg)";
                 imgTemp.classList.add("bg-dark");
                 imgTemp.classList.add("rounded");
                 divImgTemp.appendChild(imgTemp);
