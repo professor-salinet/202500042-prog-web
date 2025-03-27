@@ -14,7 +14,7 @@ console.log("nomeDaVariavelSomenteLeitura:", nomeDaVariavelSomenteLeitura);
 
 var matriz = ["vetor1","vetor2","vetor3","vetor4","vetor5"];
 
-// console.log("matriz, vetor1:", matriz[0]);
+console.log("matriz, vetor1:", matriz[0]);
 
 for (let i = 0; i < matriz.length; i++) {
     console.log("matriz[" + i + "]:", matriz[i]);
@@ -38,65 +38,45 @@ class NomeDoObjeto {
 const novoObjeto = new NomeDoObjeto();
 console.log(novoObjeto.metodoMostrarParametros("um", "dois"));
 
+const parametros = [
+    {id: 0, value: "encordoamento", char: "a"},
+    {id: 1, value: "tarraxas", char: "b"},
+    {id: 2, value: "ponte", char: "c"},
+    {id: 3, value: "captadores", char: "d"},
+    {id: 4, value: "chaveDeSelecao", char: "e"},
+    {id: 5, value: "madeiraDoCorpo", char: "f"},
+    {id: 6, value: "madeiraDoBraco", char: "g"},
+    {id: 7, value: "trastes", char: "h"},
+    {id: 8, value: "roldanasDaCorreia", char: "i"},
+    {id: 9, value: "jackDeSaida", char: "j"},
+    {id: 10, value: "cor", char: "k"},
+    {id: 11, value: "tamanho", char: "l"},
+    {id: 12, value: "textura", char: "m"},
+    {id: 13, value: "quantidadeDeCasas", char: "n"},
+    {id: 14, value: "escudo", char: "o"}
+];
+
 class GuitarraEletrica {
-    constructor(encordoamento, tarraxas, ponte, captadores, chaveDeSelecao, madeiraDoCorpo, madeiraDoBraco, trastes, roldanasDaCorreia, jackDeSaida, cor, tamanho, textura, quantidadeDeCasas, escudo) {
-        this.encordoamento = "" + encordoamento;
-        this.tarraxas = "" + tarraxas;
-        this.ponte = "" + ponte;
-        this.captadores = "" + captadores;
-        this.chaveDeSelecao = "" + chaveDeSelecao;
-        this.madeiraDoCorpo = "" + madeiraDoCorpo;
-        this.madeiraDoBraco = "" + madeiraDoBraco;
-        this.trastes = "" + trastes;
-        this.roldanasDaCorreia = "" + roldanasDaCorreia;
-        this.jackDeSaida = "" + jackDeSaida;
-        this.cor = "" + cor;
-        this.tamanho = "" + tamanho;
-        this.textura = "" + textura;
-        this.quantidadeDeCasas = "" + quantidadeDeCasas;
-        this.escudo = "" + escudo;
-    }
-    metodoMostrarParametros(encordoamento, tarraxas, ponte, captadores, chaveDeSelecao, madeiraDoCorpo, madeiraDoBraco, trastes, roldanasDaCorreia, jackDeSaida, cor, tamanho, textura, quantidadeDeCasas, escudo) {
-        // console.log(arguments);
-        for (let i = 0; i < arguments.length; i++) {
-            if (arguments[i].trim().length > 0) {
-                console.log(this[Object.keys(this)[i]]);
-                this[Object.keys(this)[i]] = arguments[i];
-                // Object.keys(this)[i] get the property name of object by index key
-                // arguments[i]; // get the value of arguments by index number
+    constructor(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o) {
+        for (let i = 0; i < parametros.length; i++) {
+            if (typeof arguments[i] != "undefined") {
+                Object.defineProperty(this, parametros[i].value, {value:arguments[i]});
+                if (arguments[i].trim().length > 0) {
+                    // Object.keys(this)[i] get the property name of object by index key
+                    // arguments[i]; // get the value of arguments by index number
+                }
             }
         }
-        // console.log(this["encordoamento"]);
-        return + this.encordoamento + 
-        " - " + 
-        this.tarraxas + 
-        " - " + 
-        this.ponte + 
-        " - " + 
-        this.captadores + 
-        " - " + 
-        this.chaveDeSelecao + 
-        " - " + 
-        this.madeiraDoCorpo + 
-        " - " + 
-        this.madeiraDoBraco + 
-        " - " + 
-        this.trastes + 
-        " - " + 
-        this.roldanasDaCorreia + 
-        " - " + 
-        this.jackDeSaida + 
-        " - " + 
-        this.cor + 
-        " - " + 
-        this.tamanho + 
-        " - " + 
-        this.textura + 
-        " - " + 
-        this.quantidadeDeCasas + 
-        " - " + 
-        this.escudo;
+    }
+    metodoMostrarParametros() {
+        let textoRetorno = [];
+        for (let i = 0; i < parametros.length; i++) {
+            if(typeof this[parametros[i].value] != "undefined") {
+                textoRetorno.push(this[parametros[i].value]);
+            }
+        }
+        return textoRetorno.toString();
     }
 }
 const guitarraEletrica = new GuitarraEletrica("0.10","com trava","tremolo");
-console.log("GuitarraEletrica:", guitarraEletrica.metodoMostrarParametros("cordas"));
+console.log("GuitarraEletrica:", guitarraEletrica.metodoMostrarParametros());
