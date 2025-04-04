@@ -5,11 +5,15 @@ document.getElementById('formCadastro').addEventListener('submit', async (e) => 
     const senha = document.getElementById('txtSenha').value;
 
     const response = await fetch('/api/usuarios', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome, login, senha })
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, login, senha })
     });
 
     const result = await response.json();
     console.log(result.message);
-  });
+
+    localStorage.setItem('firstname', nome);
+    localStorage.setItem('email', login);
+    localStorage.setItem('senha', senha);
+});
