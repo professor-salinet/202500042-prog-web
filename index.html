@@ -19,22 +19,40 @@
     </style>
 </head>
 
-<body class="">
-    <form id="frmCadastro">
-        <label for="txtNome">Digite o Nome</label>
-        <input type="text" id="txtNome" class="form-control" /><br />
-        <label for="txtLogin">Digite o Login</label>
-        <input type="text" id="txtLogin" class="form-control" /><br />
-        <label for="txtSenha">Digite a Senha</label>
-        <input type="password" id="txtSenha" class="form-control" /><br />
-        <input type="submit" class="btn btn-primary" value="Cadastrar" />
-    </form>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Cadastro</h2>
+        <form id="frmCadastro">
+            <div class="mb-3">
+                <label for="txtNome" class="form-label">Nome:</label>
+                <input type="text" class="form-control" id="txtNome">
+            </div>
+            <div class="mb-3">
+                <label for="txtLogin" class="form-label">Login:</label>
+                <input type="text" class="form-control" id="txtLogin">
+            </div>
+            <div class="mb-3">
+                <label for="txtSenha" class="form-label">Senha:</label>
+                <input type="password" class="form-control" id="txtSenha">
+            </div>
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+    </div>
+    <!-- <form id="frmCadastro"> -->
+        <!-- <label for="txtNome">Digite o Nome</label> -->
+        <!-- <input type="text" id="txtNome" class="form-control" /><br /> -->
+        <!-- <label for="txtLogin">Digite o Login</label> -->
+        <!-- <input type="text" id="txtLogin" class="form-control" /><br /> -->
+        <!-- <label for="txtSenha">Digite a Senha</label> -->
+        <!-- <input type="password" id="txtSenha" class="form-control" /><br /> -->
+        <!-- <input type="submit" class="btn btn-primary" value="Cadastrar" /> -->
+    <!-- </form> -->
     <br />
-    <a class="btn btn-primary" data-source="./login.html" onclick="openNewBackgroundTab()">Login</a><br />
-    <a class="btn btn-primary" data-source="./cadastro.html" onclick="openNewBackgroundTab()">Cadastro</a><br />
-    <a class="btn btn-primary" data-source="./leitura.html" onclick="openNewBackgroundTab()">Leitura</a><br />
-    <a class="btn btn-primary" data-source="./atualizacao.html" onclick="openNewBackgroundTab()">Atualização</a><br />
-    <a class="btn btn-primary" data-source="./remocao.html" onclick="openNewBackgroundTab()">Remoção</a><br />
+    <a class="btn btn-primary" href="./login.html" target="_blank">Login</a><br />
+    <a class="btn btn-primary" href="./cadastro.html" target="_blank">Cadastro</a><br />
+    <a class="btn btn-primary" href="./leitura.html" target="_blank">Leitura</a><br />
+    <a class="btn btn-primary" href="./atualizacao.html" target="_blank">Atualização</a><br />
+    <a class="btn btn-primary" href="./remocao.html" target="_blank">Remoção</a><br />
 
     <script src="./index.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
