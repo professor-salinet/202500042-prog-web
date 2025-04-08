@@ -8,15 +8,7 @@ const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('.')); // serve seu index.html
-// app.use('/api/cadastro', require('./api/cadastro').app).listen(3000);
-// app.use('/api/login', require('./api/login').app).listen(3000);
-// app.use(express.static('index.html')); // serve index.html
-// app.use(express.static('login.html')); // serve login.html
-// app.use(express.static('cadastro.html')); // serve cadastro.html
-// app.use(express.static('leitura.html')); // serve leitura.html
-// app.use(express.static('atualizacao.html')); // serve atualizacao.html
-// app.use(express.static('remocao.html')); // serve remocao.html
+app.use(express.static('.'));
 
 const pool = mysql.createPool({
     host: '127.0.0.1',
@@ -30,29 +22,33 @@ app.post('/api/mysql', async (req, res) => {
     try {
         switch (tipo) {
             case 'cadastro':
-                await pool.query(
+                var [rows, fields] = await pool.query(
                     "insert into `salinet`.`tbl_login` (`nome`, `login`, `senha`) values (?, ?, ?);",
                     [nome, login, senha]
                 );
-                if (pool.insertId > 0) {
+                if (rows.affectedRows > 0) {
                     res.json({ message: 'Usuário cadastrado com sucesso!' });
                 } else {
-                    throw (`Não foi possível cadastrar o usuário! pool: ${pool}`);
+                    throw ('Não foi possível cadastrar o usuário!');
                 }
                 break;
             case 'login':
-                await pool.query(
+                var [rows, fields] = await pool.query(
                     "select * from `salinet`.`tbl_login` where `nome` = ? and `login` = ? and `senha` = ?;",
                     [nome, login, senha]
                 );
-                res.json({ message: 'Usuário logado com sucesso!' });
+                if (rows.length == 1) {
+                    res.json({ message: 'Usuário logado com sucesso' });
+                } else {
+                    throw ("Não foi possível logar o usuário!");
+                }
                 break;
             default:
-                throw ("Erro");
+                throw ("Não foi possível identificar o tipo!");
         }
     } catch (err) {
-        // console.error(err);
-        res.status(500).json({ message: `Erro: ${err} | pool: ${pool}` });
+        // console.error(err); // aqui não vai aparecer o erro no console, pois este arquivo não é processado pelo frontend, mas sim pelo backend (node server.js)
+        res.status(500).json({ message: `Erro: ${err}` });
     }
 });
 
