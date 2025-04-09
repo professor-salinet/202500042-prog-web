@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualização</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./fontawesome-free-6.7.2-web/css/all.min.css" />
     <link rel="shortcut icon" href="./homer.png" />
 </head>
 
 <body class="bg-light">
-    <div class="container mt-5">
+    <div class="container mt-3">
         <h2 class="mb-4">Visualizar</h2>
-        <form>
+        <form id="frmLeitura">
+            <div class="mb-3">
+                <label for="txtId" class="form-label">Id:</label>
+                <input type="text" class="form-control" id="txtId" disabled>
+            </div>
             <div class="mb-3">
                 <label for="txtNome" class="form-label">Nome:</label>
                 <input type="text" class="form-control" id="txtNome">
@@ -23,13 +28,36 @@
             </div>
             <div class="mb-3">
                 <label for="txtSenha" class="form-label">Senha:</label>
-                <input type="password" class="form-control" id="txtSenha">
+                <input type="password" class="form-control" id="txtSenha" disabled>
             </div>
-            <button type="submit" class="btn btn-info">Visualizar</button>
+            <button type="submit" class="btn btn-info">
+                <i class="fa fa-magnifying-glass"></i>
+                Pesquisar
+            </button>
         </form>
+        <hr class="divider">
+        <button class="btn btn-dark">
+            <i class="fa fa-backward-fast"></i>
+            Primeiro
+        </button>
+        <button class="btn btn-dark">
+            <i class="fa fa-backward-step"></i>
+            Anterior
+        </button>
+        <button class="btn btn-dark">
+            Próximo
+            <i class="fa fa-forward-step"></i>
+        </button>
+        <button class="btn btn-dark">
+            Último
+            <i class="fa fa-forward-fast"></i>
+        </button>
+        <hr class="divider">
+        <h6 id="notificacao" class="align-items-center justify-content-center h-100 w-100">Digite o valor no campo que deseja pesquisar e clique em: "Pesquisar"</h6>
     </div>
     <script src="./leitura.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./fontawesome-free-6.7.2-web/js/all.min.js"></script>
 </body>
 
 </html>

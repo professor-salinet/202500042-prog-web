@@ -43,6 +43,38 @@ app.post('/api/mysql', async (req, res) => {
                     throw ("Não foi possível logar o usuário!");
                 }
                 break;
+            case 'leitura':
+                var addNome = "";
+                var addLogin = "";
+                var addAnd = "";
+
+                if (nome.trim().length > 0) {
+                    addNome = " `nome` like '%" + nome + "%' ";
+                }
+
+                if (login.trim().length > 0) {
+                    addLogin = " `login` like '%" + login + "%' ";
+                }
+
+                if (nome.trim().length > 0 && login.trim().length > 0) {
+                    addAnd = " and ";
+                }
+
+                var strSql = "select * from `salinet`.`tbl_login` where" + 
+                    addNome + addAnd + addLogin + ";";
+                var [rows, fields] = await pool.query(strSql);
+                if (rows.length > 0) {
+                    res.json({ 
+                        message: 'Nome ou login encontrado com sucesso!',
+                        id: rows[0].id,
+                        nome: rows[0].nome,
+                        login: rows[0].login,
+                        linhas: rows.length
+                    });
+                } else {
+                    throw ("Não foi possível encontrar o nome ou login!");
+                }
+                break;
             default:
                 throw ("Não foi possível identificar o tipo!");
         }
