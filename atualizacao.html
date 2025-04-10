@@ -13,7 +13,16 @@
 <body class="bg-light">
     <div class="container mt-5">
         <h2 class="mb-4">Atualização</h2>
-        <form>
+        <form id="frmAtualizacao">
+            <div class="mb-3">
+                <select id="selId" class="form-select" aria-label="Selecione aqui o registro">
+                    <option selected>Selecione aqui o registro</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="txtId" class="form-label">Id:</label>
+                <input type="text" class="form-control" id="txtId" disabled>
+            </div>
             <div class="mb-3">
                 <label for="txtNome" class="form-label">Nome:</label>
                 <input type="text" class="form-control" id="txtNome">

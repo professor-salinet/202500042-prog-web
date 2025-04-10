@@ -18,7 +18,7 @@ const pool = mysql.createPool({
 });
 
 app.post('/api/mysql', async (req, res) => {
-    const { nome, login, senha, tipo } = req.body;
+    const { nome, login, senha, tipo, id } = req.body;
     try {
         switch (tipo) {
             case 'cadastro':
@@ -73,6 +73,61 @@ app.post('/api/mysql', async (req, res) => {
                     });
                 } else {
                     throw ("Não foi possível encontrar o nome ou login!");
+                }
+                break;
+            case 'atualizacao':
+                var strSql = "select * from `salinet`.`tbl_login`;";
+                var [rows, fields] = await pool.query(strSql);
+                if (rows.length > 0) {
+                    res.json({ 
+                        message: 'Nome, login e senhas encontrados com sucesso!',
+                        rows: rows
+                    });
+                } else {
+                    throw ("Não há registro algum na tabela tbl_login!");
+                }
+                break;
+            case 'atualizar':
+                var addId = "";
+                var addNome = "";
+                var addLogin = "";
+                var addSenha = "";
+                var addAnd = "";
+
+                if (id.trim().length > 0) {
+                    addId = id;
+                }
+
+                if (nome.trim().length > 0) {
+                    addNome = " `nome` = '" + nome + "' ";
+                }
+
+                if (login.trim().length > 0) {
+                    addLogin = " `login` = '" + login + "' ";
+                }
+
+                if (addNome.length > 0) {
+                    addLogin = " , " + addLogin;
+                }
+
+                if (senha.trim().length > 0) {
+                    addSenha = " `senha` = '" + senha + "' ";
+                }
+
+                if (addLogin.length > 0) {
+                    addSenha = " , " + addSenha;
+                }
+
+                var strSql = "update `salinet`.`tbl_login` set " + 
+                    addNome + addLogin + addSenha + 
+                    " where `id` = " + addId + ";";
+                var [rows, fields] = await pool.query(strSql);
+                if (rows.affectedRows > 0) {
+                    res.json({ 
+                        message: 'Registro atualizado com sucesso!'
+                    });
+                } else {
+                    throw ("Não foi possível atualizar o id: " + addId + " na tabela tbl_login!");
                 }
                 break;
             default:
