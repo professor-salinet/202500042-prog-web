@@ -51,6 +51,7 @@ document.getElementById('frmAtualizacao').addEventListener('submit', async (e) =
     const result = await response.json();
     console.log(result.message);
 
+    selId.text = txtNome.value;
     notificacao.innerText = result.message;
 });
 
