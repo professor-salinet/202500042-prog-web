@@ -130,6 +130,24 @@ app.post('/api/mysql', async (req, res) => {
                     throw ("Não foi possível atualizar o id: " + addId + " na tabela tbl_login!");
                 }
                 break;
+            case 'remover':
+                var addId = "";
+
+                if (id.trim().length > 0) {
+                    addId = id;
+                }
+
+
+                var strSql = "delete from `salinet`.`tbl_login` where `id` = " + addId + ";";
+                var [rows, fields] = await pool.query(strSql);
+                if (rows.affectedRows > 0) {
+                    res.json({ 
+                        message: 'Registro removido com sucesso!'
+                    });
+                } else {
+                    throw ("Não foi possível remover o id: " + addId + " na tabela tbl_login!");
+                }
+                break;
             default:
                 throw ("Não foi possível identificar o tipo!");
         }
