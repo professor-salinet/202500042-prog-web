@@ -43,6 +43,7 @@ app.post('/api/mysql', async (req, res) => {
                     throw ("Não foi possível logar o usuário!");
                 }
                 break;
+            case 'primeiro':
             case 'leitura':
                 var addNome = "";
                 var addLogin = "";
@@ -69,10 +70,91 @@ app.post('/api/mysql', async (req, res) => {
                         id: rows[0].id,
                         nome: rows[0].nome,
                         login: rows[0].login,
-                        linhas: rows.length
+                        linhas: rows
                     });
                 } else {
                     throw ("Não foi possível encontrar o nome ou login!");
+                }
+                break;
+            case 'anterior':
+                var addId = "";
+                var addNome = "";
+                var addLogin = "";
+                var addAnd = "";
+
+                if (id.trim().length > 0) {
+                    addId = " `id` < " + id + " ";
+                }
+
+                if (nome.trim().length > 0) {
+                    addNome = " `nome` like '%" + nome + "%' ";
+                }
+
+                if (login.trim().length > 0) {
+                    addLogin = " `login` like '%" + login + "%' ";
+                }
+
+                if (nome.trim().length > 0 && login.trim().length > 0) {
+                    addAnd = " and ";
+                }
+
+                if (id.trim().length > 0 && login.trim().length > 0) {
+                    addAnd = " and ";
+                }
+
+                if (id.trim().length > 0 && nome.trim().length > 0) {
+                    addAnd = " and ";
+                }
+
+                var strSql = "select * from `salinet`.`tbl_login` where" + 
+                    addNome + addAnd + addLogin + addAnd + addId + ";";
+                var [rows, fields] = await pool.query(strSql);
+                if (rows.length > 0) {
+                    res.json({
+                        message: 'Nome ou login encontrado com sucesso!',
+                        id: rows[0].id,
+                        nome: rows[0].nome,
+                        login: rows[0].login
+                    });
+                } else {
+                    throw ("Não foi possível encontrar o nome ou login!");
+                }
+                break;
+            case 'proximo':
+                var addId = "";
+                var addNome = "";
+                var addLogin = "";
+                var addAnd = "";
+
+                if (id.trim().length > 0) {
+                    addId = " `id` > " + id + " ";
+                }
+
+                if (nome.trim().length > 0) {
+                    addNome = " `nome` like '%" + nome + "%' ";
+                }
+
+                if (login.trim().length > 0) {
+                    addLogin = " `login` like '%" + login + "%' ";
+                }
+
+                if (nome.trim().length > 0 && login.trim().length > 0) {
+                    addAnd = " and ";
+                }
+
+                var strSql = "select * from `salinet`.`tbl_login` where" + 
+                    addNome + addAnd + addLogin + addAnd + addId + ";";
+                var [rows, fields] = await pool.query(strSql);
+                if (rows.length > 0) {
+                    res.json({
+                        message: 'Nome ou login encontrado com sucesso!',
+                        id: rows[0].id,
+                        nome: rows[0].nome,
+                        login: rows[0].login
+                    });
+                } else {
+                    // throw ("Não foi possível encontrar o nome ou login!");
+                    throw ("Não foi possível encontrar o nome ou login! sql: " + strSql);
                 }
                 break;
             case 'atualizacao':
@@ -153,7 +235,10 @@ app.post('/api/mysql', async (req, res) => {
         }
     } catch (err) {
         // console.error(err); // aqui não vai aparecer o erro no console, pois este arquivo não é processado pelo frontend, mas sim pelo backend (node server.js)
-        res.status(500).json({ message: `Erro: ${err}` });
+        res.status(500).json({ 
+            message: `Erro: ${err}`,
+            error: `Erro: ${err}`
+        });
     }
 });
 

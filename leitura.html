@@ -14,9 +14,11 @@
     <div class="container mt-3">
         <h2 class="mb-4">Visualizar</h2>
         <form id="frmLeitura">
+            <input type="hidden" id="hdnPesquisaNome" />
+            <input type="hidden" id="hdnPesquisaLogin" />
             <div class="mb-3">
                 <label for="txtId" class="form-label">Id:</label>
-                <input type="text" class="form-control" id="txtId" disabled>
+                <input type="text" class="form-control" id="txtId" data-index="0" disabled>
             </div>
             <div class="mb-3">
                 <label for="txtNome" class="form-label">Nome:</label>
@@ -34,21 +36,25 @@
                 <i class="fa fa-magnifying-glass"></i>
                 Pesquisar
             </button>
+            <a class="btn btn-primary" id="btnLimpar">
+                <i class="fa fa-broom color-red"></i>
+                Limpar
+            </a>
         </form>
         <hr class="divider">
-        <button class="btn btn-dark">
+        <button class="btn btn-dark" id="btnPrimeiroRegistro">
             <i class="fa fa-backward-fast"></i>
             Primeiro
         </button>
-        <button class="btn btn-dark">
+        <button class="btn btn-dark" id="btnRegistroAnterior">
             <i class="fa fa-backward-step"></i>
             Anterior
         </button>
-        <button class="btn btn-dark">
+        <button class="btn btn-dark" id="btnProximoRegistro">
             Próximo
             <i class="fa fa-forward-step"></i>
         </button>
-        <button class="btn btn-dark">
+        <button class="btn btn-dark" id="btnUltimoRegistro">
             Último
             <i class="fa fa-forward-fast"></i>
         </button>
