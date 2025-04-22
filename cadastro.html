@@ -4,32 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Cadastro</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./fontawesome-free-6.7.2-web/css/all.min.css" />
     <link rel="shortcut icon" href="./homer.png" />
-    <style>
-        .btn-secondary {
-            background-color: aqua;
-            color: black;
-        }
-    </style>
 </head>
 
-<body>
-
-    <!-- <a href="https://www.instagram.com/seuperfil" target="_blank"> -->
-        <!-- <i class="fa-brands fa-instagram"></i> -->
-    <!-- </a> -->
-
-    <!-- <a class="btn btn-secondary" href="https://www.pr.senac.com.br" target="_blank"> -->
-        <!-- Senac -->
-    <!-- </a> -->
-
+<body class="bg-light">
     <div class="container mt-5">
-        <h2 class="mb-4">Login</h2>
-        <h6 class="mb-4">Entre ou cadastre-se</h6>
-        <form id="frmLogin">
+        <h2 class="mb-4">Cadastro</h2>
+        <form id="frmCadastro">
+            <div class="mb-3">
+                <label for="txtNome" class="form-label">Nome:</label>
+                <input type="text" class="form-control" id="txtNome">
+            </div>
             <div class="mb-3">
                 <label for="txtLogin" class="form-label">Login:</label>
                 <input type="text" class="form-control" id="txtLogin">
@@ -38,12 +25,13 @@
                 <label for="txtSenha" class="form-label">Senha:</label>
                 <input type="password" class="form-control" id="txtSenha">
             </div>
-            <button type="submit" class="btn btn-primary">Entrar</button><br />
-            <a class="link" href="./cadastro.html">Cadastrar-se</a>
+            <button type="submit" class="btn btn-success">Cadastrar</button>
+            <a class="btn btn-secondary" href="javascript:limparCampos()">Limpar Campos</a>
+            <a class="btn btn-danger" href="./login.html">Voltar para Login</a>
         </form>
         <h6 id="notificacao"></h6>
     </div>
-    <script src="./login.js"></script>
+    <script src="./cadastro.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./fontawesome-free-6.7.2-web/js/all.min.js"></script>
 </body>

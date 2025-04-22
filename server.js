@@ -21,15 +21,28 @@ app.post('/api/mysql', async (req, res) => {
     const { nome, login, senha, tipo, id } = req.body;
     switch (tipo) {
         case 'cadastro':
+            var strSql = "";
             try {
-                var [rows, fields] = await pool.query(
-                    "insert into `salinet`.`tbl_login` (`nome`, `login`, `senha`) values (?, ?, ?);",
-                    [nome, login, senha]
-                );
-                if (rows.affectedRows > 0) {
-                    res.json({ message: 'Usuário cadastrado com sucesso!' });
+                strSql = "select * from `salinet`.`tbl_login` where `login` = '" + login + "';";
+                var [rows, fields] = await pool.query(strSql);
+                if (rows.length == 1) {
+                    res.json({ 
+                        message: 'Login já cadastrado!',
+                        error: 'Favor digitar outro login!'
+                    });
+                    // version 1.0.1: correção de bug que permite cadastrar dois usuários com mesmo login
+                    // depois esta correção se transformará em uma feature (melhoria) que vai ser versionada na próxima versão da feature, ou seja: 
+                    // version: 1.1.0
                 } else {
-                    throw ('Não foi possível cadastrar o usuário!');
+                    var [rows, fields] = await pool.query(
+                        "insert into `salinet`.`tbl_login` (`nome`, `login`, `senha`) values (?, ?, ?);",
+                        [nome, login, senha]
+                    );
+                    if (rows.affectedRows > 0) {
+                        res.json({ message: 'Usuário cadastrado com sucesso!' });
+                    } else {
+                        throw ('Não foi possível cadastrar o usuário!');
+                    }
                 }
             } catch (err) {
                 // console.error(err); // aqui não vai aparecer o erro no console, pois este arquivo não é processado pelo frontend, mas sim pelo backend (node server.js)
@@ -40,11 +53,10 @@ app.post('/api/mysql', async (req, res) => {
             }
             break;
         case 'login':
+            var strSql = "";
             try {
-                var [rows, fields] = await pool.query(
-                    "select * from `salinet`.`tbl_login` where `nome` = ? and `login` = ? and `senha` = ?;",
-                    [nome, login, senha]
-                );
+                strSql = "select * from `salinet`.`tbl_login` where `login` = '" + login + "' and `senha` = '" + senha + "';";
+                var [rows, fields] = await pool.query(strSql);
                 if (rows.length == 1) {
                     res.json({ message: 'Usuário logado com sucesso' });
                 } else {
