@@ -16,7 +16,6 @@
 // });
 
 window.setInterval(() => {
-    const cabecalho = document.getElementById("cabecalho");
     const date = new Date();
 
     var cumprimento = "";
@@ -35,6 +34,7 @@ window.setInterval(() => {
     var dtAtual = "Hoje é " + date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
     var hrAtual = "Agora são " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
-
-    cabecalho.innerText = cumprimento + " " + dtAtual + ". " + hrAtual;
+    document.getElementById("cumprimento").innerText = cumprimento;
+    document.getElementById("data").innerText = dtAtual;
+    document.getElementById("horario").innerText = hrAtual;
 }, 1000);

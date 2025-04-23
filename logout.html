@@ -12,62 +12,15 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
-                aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-    
-            <div class="collapse navbar-collapse" id="navbarsExample03">
-                <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-                    <!-- <li class="nav-item"> -->
-                    <!-- </li> -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Opções</a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="./cadastro.html?redirect=false">
-                                    <i class="fa-solid fa-user-plus"></i>
-                                    Cadastro
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="./pesquisa.html">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                    Pesquisa
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="./atualizacao.html">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                    Atualização
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="./remocao.html">
-                                    <i class="fa-solid fa-trash"></i>
-                                    Remoção
-                                </a>
-                            </li>
-                            <hr class="divider" />
-                            <li>
-                                <a class="dropdown-item" href="./logout.html" title="Sair">
-                                    <i class="fa-solid fa-arrow-right-from-bracket text-danger"></i>
-                                    Sair
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="d-flex text-white">
-                <div class="p-2 flex-fill" id="cumprimento"></div>
-                <div class="p-2 flex-fill" id="data"></div>
-                <div class="p-2 flex-fill" id="horario"></div>
-            </div>
+
+    <div class="container">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Logout realizado com sucesso!</h4>
+            <p>Acesse novamente o sistema, faça login ou fique a vontade para fechar a janela e sair</p>
+            <hr>
+            <p class="mb-0"><a class="link" href="./login.html">Login</a></p>
         </div>
-    </nav>
+    </div>
 
     <!-- As linhas abaixo são necessárias serem digitadas/declaradas exatamente onde estão, ou seja, sempre antes das declarações da tag <div class="cookieConsentContainer" id="cookieConsentContainer" style="display: none;">, a qual é parte integrante deste modelo de cookies -->
     <div class="politica-privacidade collapse" id="politica">
@@ -222,9 +175,9 @@
     <!-- A linha abaixo é necessária ser digitada/declarada exatamente onde está, ou seja, sempre antes da tag </body>, juntamente com outras declarações (se houver) de <script></script> -->
     <script src="./cookies.js"></script>
 
-    <script src="./index.js"></script>
-    <script src="./session.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./logout.js"></script>
+    <!-- <script src="./session.js"></script> -->
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./fontawesome-free-6.7.2-web/js/all.min.js"></script>
 </body>
 
