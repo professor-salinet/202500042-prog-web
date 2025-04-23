@@ -9,6 +9,18 @@ document.getElementById('frmLogin').addEventListener('submit', async (e) => {
     const senha = txtSenha.value.trim();
     const tipo = 'login';
 
+    if (login.length == 0) {
+        notificacao.innerText = "É necessário digitar um login para continuar!";
+        txtLogin.focus();
+        return false;
+    }
+
+    if (senha.length == 0) {
+        notificacao.innerText = "É necessário digitar uma senha para continuar!";
+        txtSenha.focus();
+        return false;
+    }
+
     const response = await fetch('/api/mysql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

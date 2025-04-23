@@ -46,9 +46,22 @@ document.getElementById('frmCadastro').addEventListener('submit', async (e) => {
         return false;
     }
 
-    window.setTimeout(() => {
-        window.open('./login.html', '_self');
-    }, 5000);
+    // As linhas abaixo irão manipular a leitura do parâmetro: "redirect" que está localizado na url, por exemplo: http://localhost:3000/cadastro.html?redirect=false, ou seja, será possível identificar se o parâmetro: "redirect" existe na url
+    let url = new URL(window.location);
+    let params = new URLSearchParams(url.search);
+    let getRedirect = params.get('redirect');
+    console.log("getRedirect: ", getRedirect);
+
+    if (typeof(getRedirect) == undefined) {
+        window.setTimeout(() => {
+            window.open('./login.html', '_self');
+        }, 5000);
+    } else {
+        window.setTimeout(() => {
+            window.open('./index.html', '_self');
+        }, 5000);
+    }
+
 });
 
 function limparCampos() {

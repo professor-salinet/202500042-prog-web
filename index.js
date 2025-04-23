@@ -14,3 +14,27 @@
 //     const result = await response.json();
 //     console.log(result.message);
 // });
+
+window.setInterval(() => {
+    const cabecalho = document.getElementById("cabecalho");
+    const date = new Date();
+
+    var cumprimento = "";
+    if (date.getHours() >= 0 && date.getHours() <= 11) {
+        cumprimento = "Bom dia!";
+    }
+
+    if (date.getHours() >= 12 && date.getHours() <= 17) {
+        cumprimento = "Boa tarde!";
+    }
+
+    if (date.getHours() >= 18 && date.getHours() <= 23) {
+        cumprimento = "Boa noite!";
+    }
+
+    var dtAtual = "Hoje é " + date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+    var hrAtual = "Agora são " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+
+
+    cabecalho.innerText = cumprimento + " " + dtAtual + ". " + hrAtual;
+}, 1000);
