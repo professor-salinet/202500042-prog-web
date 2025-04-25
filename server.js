@@ -35,8 +35,7 @@ app.post('/api/mysql', async (req, res) => {
                     // version: 1.1.0
                 } else {
                     var [rows, fields] = await pool.query(
-                        "insert into `salinet`.`tbl_login` (`nome`, `login`, `senha`) values (?, ?, ?);",
-                        [nome, login, senha]
+                        "insert into `salinet`.`tbl_login` (`nome`, `login`, `senha`) values ('" + nome + "', '" + login + "', md5('" + senha + "'));"
                     );
                     if (rows.affectedRows > 0) {
                         res.json({ message: 'Usuário cadastrado com sucesso!' });
@@ -55,10 +54,13 @@ app.post('/api/mysql', async (req, res) => {
         case 'login':
             var strSql = "";
             try {
-                strSql = "select * from `salinet`.`tbl_login` where `login` = '" + login + "' and `senha` = '" + senha + "';";
+                strSql = "select * from `salinet`.`tbl_login` where `login` = '" + login + "' and `senha` = md5('" + senha + "');";
                 var [rows, fields] = await pool.query(strSql);
                 if (rows.length == 1) {
-                    res.json({ message: 'Usuário logado com sucesso' });
+                    res.json({ 
+                        message: 'Usuário logado com sucesso',
+                        id: rows[0].id
+                    });
                 } else {
                     throw ("Não foi possível logar o usuário! Cadastro inválido ou duplicado.");
                 }
@@ -300,7 +302,7 @@ app.post('/api/mysql', async (req, res) => {
                 }
 
                 if (senha.trim().length > 0) {
-                    addSenha = " `senha` = '" + senha + "' ";
+                    addSenha = " `senha` = md5('" + senha + "') ";
                 }
 
                 if (addLogin.length > 0) {

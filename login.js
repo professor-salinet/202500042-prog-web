@@ -35,7 +35,7 @@ document.getElementById('frmLogin').addEventListener('submit', async (e) => {
         return false;
     } else {
         notificacao.innerText = result.message;
-        localStorage.setItem('usuario_logado', login);
+        localStorage.setItem('usuario_logado', result.id);
         window.setTimeout(() => {
             window.open('./index.html', '_self');
         }, 5000);

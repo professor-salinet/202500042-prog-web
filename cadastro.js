@@ -52,16 +52,11 @@ document.getElementById('frmCadastro').addEventListener('submit', async (e) => {
     let getRedirect = params.get('redirect');
     console.log("getRedirect: ", getRedirect);
 
-    if (typeof(getRedirect) == undefined) {
+    if (typeof(getRedirect) == undefined || typeof(getRedirect) == null) {
         window.setTimeout(() => {
             window.open('./login.html', '_self');
         }, 5000);
-    } else {
-        window.setTimeout(() => {
-            window.open('./index.html', '_self');
-        }, 5000);
     }
-
 });
 
 function limparCampos() {

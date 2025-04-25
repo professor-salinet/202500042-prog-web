@@ -1,19 +1,15 @@
-// document.getElementById('frmCadastro').addEventListener('submit', async (e) => {
-//     e.preventDefault();
-//     const nome = document.getElementById('txtNome').value;
-//     const login = document.getElementById('txtLogin').value;
-//     const senha = document.getElementById('txtSenha').value;
-//     const tipo = 'cadastro';
+function mostrarModal(titulo, url) {
+    let modalTitle = document.getElementById("modalTitle");
+    let ifModal = document.getElementById("ifModal");
+    let modalPaginas = document.getElementById("modalPaginas");
 
-//     const response = await fetch('/api/mysql', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ nome, login, senha, tipo })
-//     });
+    modalTitle.innerText = titulo;
+    ifModal.src = url;
+    modalPaginas.style.display = "block";
+}
 
-//     const result = await response.json();
-//     console.log(result.message);
-// });
+const modalPaginas = document.getElementById("modalPaginas");
+const modal
 
 window.setInterval(() => {
     const date = new Date();
