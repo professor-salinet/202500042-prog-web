@@ -8,9 +8,6 @@ function mostrarModal(titulo, url) {
     modalPaginas.style.display = "block";
 }
 
-const modalPaginas = document.getElementById("modalPaginas");
-const modal
-
 window.setInterval(() => {
     const date = new Date();
 

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="shortcut icon" href="./homer.png" />
 </head>
 
@@ -25,6 +26,10 @@
                 <label for="txtSenha" class="form-label">Senha:</label>
                 <input type="password" class="form-control" id="txtSenha">
             </div>
+            <div class="mb-3">
+                <label for="txtConfirmacaoSenha" class="form-label">Confirmar Senha:</label>
+                <input type="password" class="form-control" id="txtConfirmacaoSenha">
+            </div>
             <button type="submit" class="btn btn-success">Cadastrar</button>
             <a class="btn btn-secondary" href="javascript:limparCampos()">Limpar Campos</a>
             <a class="btn btn-danger" href="./login.html">Voltar para Login</a>
@@ -33,7 +38,7 @@
     </div>
     <script src="./cadastro.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./fontawesome-free-6.7.2-web/js/all.min.js"></script>
+    <script src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>
 </body>
 
 </html>

@@ -1,12 +1,17 @@
+var domain = window.location.hostname;
+
 document.getElementById('frmCadastro').addEventListener('submit', async (e) => {
     e.preventDefault();
     const txtNome = document.getElementById('txtNome');
     const txtLogin = document.getElementById('txtLogin');
     const txtSenha = document.getElementById('txtSenha');
+    const txtConfirmacaoSenha = document.getElementById('txtConfirmacaoSenha');
 
+    const id = "";
     const nome = txtNome.value.trim();
     const login = txtLogin.value.trim();
     const senha = txtSenha.value.trim();
+    const confirmacaoSenha = txtConfirmacaoSenha.value.trim();
 
     const notificacao = document.getElementById('notificacao');
     const tipo = 'cadastro';
@@ -29,10 +34,16 @@ document.getElementById('frmCadastro').addEventListener('submit', async (e) => {
         return false;
     }
 
+    if (senha != confirmacaoSenha) {
+        notificacao.innerText = "Senhas não conferem!";
+        txtConfirmacaoSenha.focus();
+        return false;
+    }
+
     const response = await fetch('/api/mysql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, login, senha, tipo })
+        body: JSON.stringify({ nome, login, senha, tipo, id, domain })
     });
 
     const result = await response.json();
@@ -50,7 +61,6 @@ document.getElementById('frmCadastro').addEventListener('submit', async (e) => {
     let url = new URL(window.location);
     let params = new URLSearchParams(url.search);
     let getRedirect = params.get('redirect');
-    console.log("getRedirect: ", getRedirect);
 
     if (typeof(getRedirect) == undefined || typeof(getRedirect) == null) {
         window.setTimeout(() => {

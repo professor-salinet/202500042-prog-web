@@ -10,20 +10,36 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
 
-const pool = mysql.createPool({
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'senac@02',
-    database: 'salinet'
-});
-
 app.post('/api/mysql', async (req, res) => {
-    const { nome, login, senha, tipo, id } = req.body;
+
+    const { nome, login, senha, tipo, id, domain } = req.body;
+
+    // Aqui estou definindo as variáveis padrão para uso na conexão com o servidor mysql local
+    var srvHost = '127.0.0.1';
+    var srvUser = 'root';
+    var srvPassword = 'senac@02';
+    var srvDatabase = 'salinet';
+
+    // Aqui estou definindo as variáveis padrão para uso na conexão com o servidor mysql remoto
+    if (domain != "localhost") {
+        srvHost = 'sql.freedb.tech';
+        srvUser = 'freedb_salinet';
+        srvPassword = 'Eecj!x9yxK#ZUkU';
+        srvDatabase = 'freedb_salinet';
+    }
+
+    const pool = mysql.createPool({
+        host: srvHost,
+        user: srvUser,
+        password: srvPassword,
+        database: srvDatabase
+    });
+
     switch (tipo) {
         case 'cadastro':
             var strSql = "";
             try {
-                strSql = "select * from `salinet`.`tbl_login` where `login` = '" + login + "';";
+                strSql = "select * from `" + srvDatabase + "`.`tbl_login` where `login` = '" + login + "';";
                 var [rows, fields] = await pool.query(strSql);
                 if (rows.length == 1) {
                     res.json({ 
@@ -35,7 +51,7 @@ app.post('/api/mysql', async (req, res) => {
                     // version: 1.1.0
                 } else {
                     var [rows, fields] = await pool.query(
-                        "insert into `salinet`.`tbl_login` (`nome`, `login`, `senha`) values ('" + nome + "', '" + login + "', md5('" + senha + "'));"
+                        "insert into `" + srvDatabase + "`.`tbl_login` (`nome`, `login`, `senha`) values ('" + nome + "', '" + login + "', md5('" + senha + "'));"
                     );
                     if (rows.affectedRows > 0) {
                         res.json({ message: 'Usuário cadastrado com sucesso!' });
@@ -46,15 +62,15 @@ app.post('/api/mysql', async (req, res) => {
             } catch (err) {
                 // console.error(err); // aqui não vai aparecer o erro no console, pois este arquivo não é processado pelo frontend, mas sim pelo backend (node server.js)
                 res.status(500).json({ 
-                    message: `Erro de cadastro: ${err}`,
-                    error: `Erro de cadastro: ${err}`
+                    message: `Erro de cadastro: ${err} ${domain}`,
+                    error: `Erro de cadastro: ${err} ${domain}`
                 });
             }
             break;
         case 'login':
             var strSql = "";
             try {
-                strSql = "select * from `salinet`.`tbl_login` where `login` = '" + login + "' and `senha` = md5('" + senha + "');";
+                strSql = "select * from `" + srvDatabase + "`.`tbl_login` where `login` = '" + login + "' and `senha` = md5('" + senha + "');";
                 var [rows, fields] = await pool.query(strSql);
                 if (rows.length == 1) {
                     res.json({ 
@@ -91,7 +107,7 @@ app.post('/api/mysql', async (req, res) => {
                     addAnd = " and ";
                 }
 
-                var strSql = "select * from `salinet`.`tbl_login` where" + 
+                var strSql = "select * from `" + srvDatabase + "`.`tbl_login` where" + 
                     addNome + addAnd + addLogin + " order by `id` asc;";
                 var [rows, fields] = await pool.query(strSql);
                 if (rows.length > 0) {
@@ -142,7 +158,7 @@ app.post('/api/mysql', async (req, res) => {
                     addId = " and " + addId;
                 }
 
-                var strSql = "select * from `salinet`.`tbl_login` where" + 
+                var strSql = "select * from `" + srvDatabase + "`.`tbl_login` where" + 
                     addNome + addLogin + addId + " order by `id` desc;";
                 var [rows, fields] = await pool.query(strSql);
                 if (rows.length > 0) {
@@ -193,7 +209,7 @@ app.post('/api/mysql', async (req, res) => {
                     addId = " and " + addId;
                 }
 
-                strSql = "select * from `salinet`.`tbl_login` where" + 
+                strSql = "select * from `" + srvDatabase + "`.`tbl_login` where" + 
                     addNome + addLogin + addId + " order by `id` asc;";
                 var [rows, fields] = await pool.query(strSql);
                 if (rows.length > 0) {
@@ -234,7 +250,7 @@ app.post('/api/mysql', async (req, res) => {
                     addAnd = " and ";
                 }
 
-                var strSql = "select * from `salinet`.`tbl_login` where" + 
+                var strSql = "select * from `" + srvDatabase + "`.`tbl_login` where" + 
                     addNome + addAnd + addLogin + " order by `id` desc;";
                 var [rows, fields] = await pool.query(strSql);
                 if (rows.length > 0) {
@@ -259,7 +275,7 @@ app.post('/api/mysql', async (req, res) => {
             break;
         case 'atualizacao':
             try {
-                var strSql = "select * from `salinet`.`tbl_login` order by `id` asc;";
+                var strSql = "select * from `" + srvDatabase + "`.`tbl_login` order by `id` asc;";
                 var [rows, fields] = await pool.query(strSql);
                 if (rows.length > 0) {
                     res.json({ 
@@ -309,7 +325,7 @@ app.post('/api/mysql', async (req, res) => {
                     addSenha = " , " + addSenha;
                 }
 
-                var strSql = "update `salinet`.`tbl_login` set " + 
+                var strSql = "update `" + srvDatabase + "`.`tbl_login` set " + 
                     addNome + addLogin + addSenha + 
                     " where `id` = " + addId + ";";
                 var [rows, fields] = await pool.query(strSql);
@@ -336,7 +352,7 @@ app.post('/api/mysql', async (req, res) => {
                     addId = id;
                 }
 
-                var strSql = "delete from `salinet`.`tbl_login` where `id` = " + addId + ";";
+                var strSql = "delete from `" + srvDatabase + "`.`tbl_login` where `id` = " + addId + ";";
                 var [rows, fields] = await pool.query(strSql);
                 if (rows.affectedRows > 0) {
                     res.json({ 
