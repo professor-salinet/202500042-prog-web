@@ -9,6 +9,30 @@
     <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="./cookies.css" />
     <link rel="shortcut icon" href="./homer.png" />
+
+    <style>
+        .modal {
+            --bs-modal-width: 100% !important;
+            --bs-modal-height: 700px;
+            /* width: fit-content; */
+            /* width: 700px !important; */
+        }
+
+        #modalBody {
+            height: 270px;
+        }
+
+        #ifModal {
+            width: -webkit-fill-available;
+            height: 235px;
+        }
+
+        #ifPagina {
+            width: -webkit-fill-available;
+            /* height: -webkit-fill-available; */
+            max-height: fit-content;
+        }
+    </style>
 </head>
 
 <body>
@@ -27,13 +51,13 @@
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Opções</a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="javascript:mostrarModal('Cadastro', './cadastro.html?redirect=false')">
+                                <a class="dropdown-item" href="javascript:mostrarPagina('./cadastro.html?redirect=false')">
                                     <i class="fa-solid fa-user-plus"></i>
                                     Cadastro
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="./pesquisa.html">
+                                <a class="dropdown-item" href="javascript:mostrarModal('Pesquisa', './leitura.html?redirect=false')">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                     Pesquisa
                                 </a>
@@ -69,18 +93,20 @@
         </div>
     </nav>
 
+    <iframe id="ifPagina" width="100%" height="pixels"></iframe>
+
     <div class="modal modal-dialog modal-dialog-centered" tabindex="-1" id="modalPaginas" style="display: none;">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" id="modalContent">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitle">Aqui será o título</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="fecharModal()"></button>
                 </div>
-                <div class="modal-body">
-                    <iframe id="ifModal">Aqui será mostrao o iframe</iframe>
+                <div class="modal-body" id="modalBody">
+                    <iframe id="ifModal">Aqui será mostrado o iframe</iframe>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="fecharModal()">Fechar</button>
                 </div>
             </div>
         </div>

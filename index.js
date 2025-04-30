@@ -8,6 +8,15 @@ function mostrarModal(titulo, url) {
     modalPaginas.style.display = "block";
 }
 
+function mostrarPagina(url) {
+    let ifPagina = document.getElementById("ifPagina");
+    ifPagina.src = url;
+}
+
+function fecharModal() {
+    let modalPaginas = document.getElementById("modalPaginas");
+    modalPaginas.style.display = "none";
+}
 window.setInterval(() => {
     const date = new Date();
 
