@@ -1,0 +1,103 @@
+document.getElementById('frmRemocao').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const txtId = document.getElementById("txtId");
+    const txtNome = document.getElementById("txtNome");
+    const txtLogin = document.getElementById("txtLogin");
+    const txtSenha = document.getElementById("txtSenha");
+    var selId = document.getElementById("selId");
+    selId = selId.options[selId.selectedIndex];
+
+    const id = txtId.value;
+    const nome = txtNome.value;
+    const login = txtLogin.value;
+    const senha = txtSenha.value;
+    const notificacao = document.getElementById('notificacao');
+
+    if (txtId.value.length == 0) {
+        notificacao.innerHTML = "<b class=\"text-danger\">Não há registro selecionado a ser removido no banco de dados.</b>";
+        return false;
+    }
+
+    const tipo = 'remover';
+
+    const response = await fetch('/api/mysql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, login, senha, tipo, id })
+    });
+
+    const result = await response.json();
+    console.log(result.message);
+
+    limparCampos();
+    notificacao.innerText = result.message;
+});
+
+window.addEventListener('load', async (e) => {
+    e.preventDefault();
+
+    const nome = document.getElementById('txtNome').value;
+    const login = document.getElementById('txtLogin').value;
+    const notificacao = document.getElementById('notificacao');
+    const senha = document.getElementById('txtSenha').value;
+    const id = document.getElementById('txtId').value;
+    const selId = document.getElementById('selId');
+    const tipo = 'atualizacao';
+
+    const response = await fetch('/api/mysql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, login, senha, tipo, id })
+    });
+
+    const result = await response.json();
+    // console.log(result.rows.length);
+    let optTmp;
+    for (let i = 0; i < result.rows.length; i++) {
+        // console.log(result.rows[i].id);
+        optTmp = document.createElement("option");
+        optTmp.value = result.rows[i].id;
+        optTmp.text = result.rows[i].nome;
+        optTmp.dataset.login = result.rows[i].login;
+        optTmp.dataset.senha = result.rows[i].senha;
+        selId.add(optTmp);
+    }
+    notificacao.innerText = "Dados carregados com sucesso!";
+});
+
+document.getElementById('selId').addEventListener('change', () => {
+    let txtId = document.getElementById("txtId");
+    let txtNome = document.getElementById("txtNome");
+    let txtLogin = document.getElementById("txtLogin");
+    let txtSenha = document.getElementById("txtSenha");
+    let selId = document.getElementById("selId");
+
+    selId = selId.options[selId.selectedIndex];
+    // console.log(selId);
+    if (selId.dataset.login) {
+        txtId.value = selId.value;
+        txtNome.value = selId.text;
+        txtLogin.value = selId.dataset.login;
+        txtSenha.value = selId.dataset.senha;
+    } else {
+        txtId.value = "";
+        txtNome.value = "";
+        txtLogin.value = "";
+        txtSenha.value = "";
+    }
+});
+
+function limparCampos() {
+    let txtId = document.getElementById("txtId");
+    let txtNome = document.getElementById("txtNome");
+    let txtLogin = document.getElementById("txtLogin");
+    let txtSenha = document.getElementById("txtSenha");
+    let selId = document.getElementById("selId");
+
+    txtId.value = "";
+    txtLogin.value = "";
+    txtNome.value = "";
+    txtSenha.value = "";
+
+    selId.value = "0";
+}

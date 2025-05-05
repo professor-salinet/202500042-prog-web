@@ -74,7 +74,7 @@ app.post('/api/mysql', async (req, res) => {
                 var [rows, fields] = await pool.query(strSql);
                 if (rows.length == 1) {
                     res.json({ 
-                        message: 'Usuário logado com sucesso',
+                        message: 'Usuário logado com sucesso! Redirecionando...',
                         id: rows[0].id
                     });
                 } else {

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remoção</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="./cookies.css" />
+    <link rel="shortcut icon" href="./homer.png" />
+</head>
+
+<body class="bg-light">
+    <div class="container mt-2">
+        <h2 class="mb-4">Remoção</h2>
+        <form id="frmRemocao">
+            <div class="mb-3">
+                <select id="selId" class="form-select" aria-label="Selecione aqui o registro">
+                    <option value="0" selected>Selecione aqui o registro</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="txtId" class="form-label">Id:</label>
+                <input type="text" class="form-control" id="txtId" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="txtNome" class="form-label">Nome:</label>
+                <input type="text" class="form-control" id="txtNome" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="txtLogin" class="form-label">Login:</label>
+                <input type="text" class="form-control" id="txtLogin" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="txtSenha" class="form-label">Senha:</label>
+                <input type="password" class="form-control" id="txtSenha" readonly>
+            </div>
+            <button type="submit" class="btn btn-warning">Remover</button>
+            <a type="cancel" class="btn btn-dark" onclick="limparCampos()">Cancelar</a>
+        </form>
+        <hr class="divider" />
+        <h6 id="notificacao">Barra de notificações</h6>
+    </div>
+    <script src="./remocao.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>
+</body>
+
+</html>

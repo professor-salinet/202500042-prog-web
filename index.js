@@ -1,22 +1,39 @@
-function mostrarModal(titulo, url) {
-    let modalTitle = document.getElementById("modalTitle");
-    let ifModal = document.getElementById("ifModal");
-    let modalPaginas = document.getElementById("modalPaginas");
+var larguraPagina = window.innerWidth;
+var alturaPagina = window.innerHeight;
 
-    modalTitle.innerText = titulo;
-    ifModal.src = url;
-    modalPaginas.style.display = "block";
-}
+var ifPagina = document.getElementById("ifPagina");
+
+var navBarTop = document.getElementById("navBarTop");
+var larguraNavBarTop = navBarTop.clientWidth;
+var alturaNavBarTop = navBarTop.clientHeight;
 
 function mostrarPagina(url) {
-    let ifPagina = document.getElementById("ifPagina");
     ifPagina.src = url;
 }
 
-function fecharModal() {
-    let modalPaginas = document.getElementById("modalPaginas");
-    modalPaginas.style.display = "none";
+function mostrarTamanhos() {
+    console.clear();
+
+    console.log("larguraPagina: ", larguraPagina);
+    console.log("alturaPagina: ", alturaPagina);
+
+    console.log("larguraNavBarTop: ", larguraNavBarTop);
+    console.log("alturaNavBarTop: ", alturaNavBarTop);
 }
+
+function redimensionarIFrame() {
+    larguraPagina = window.innerWidth;
+    alturaPagina = window.innerHeight;
+
+    larguraNavBarTop = navBarTop.clientWidth;
+    alturaNavBarTop = navBarTop.clientHeight;
+
+    ifPagina.width = larguraPagina;
+    ifPagina.height = alturaPagina - alturaNavBarTop;
+
+    // mostrarTamanhos();
+}
+
 window.setInterval(() => {
     const date = new Date();
 
@@ -39,4 +56,14 @@ window.setInterval(() => {
     document.getElementById("cumprimento").innerText = cumprimento;
     document.getElementById("data").innerText = dtAtual;
     document.getElementById("horario").innerText = hrAtual;
+
+    redimensionarIFrame();
 }, 1000);
+
+window.addEventListener('load', () => {
+    redimensionarIFrame();
+});
+
+window.addEventListener('resize', () => {
+    redimensionarIFrame();
+});
