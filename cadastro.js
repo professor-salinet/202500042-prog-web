@@ -18,38 +18,42 @@ document.getElementById('frmCadastro').addEventListener('submit', async (e) => {
 
     if (nome.length == 0) {
         notificacao.innerText = "É necessário digitar um nome para continuar!";
+        alert("É necessário digitar um nome para continuar!");
         txtNome.focus();
         return false;
     }
 
     if (login.length == 0) {
         notificacao.innerText = "É necessário digitar um login para continuar!";
+        alert("É necessário digitar um login para continuar!");
         txtLogin.focus();
         return false;
     }
 
     if (senha.length == 0) {
         notificacao.innerText = "É necessário digitar uma senha para continuar!";
+        alert("É necessário digitar uma senha para continuar!");
         txtSenha.focus();
         return false;
     }
 
     if (senha != confirmacaoSenha) {
         notificacao.innerText = "Senhas não conferem!";
+        alert("Senhas não conferem!");
         txtConfirmacaoSenha.focus();
         return false;
     }
 
-    const response = await fetch('/api/mysql', {
+    const response = await fetch('/cadastro', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, login, senha, tipo, id, domain })
+        body: JSON.stringify({ nome, login, senha, domain })
     });
 
     const result = await response.json();
-    console.log(result.message);
     let msgErro = (result.error) ? " " + result.error : "";
     notificacao.innerText = result.message + msgErro;
+    alert(result.message + msgErro);
 
     // essa linha vai verificar se há uma mensagem de erro e vai impedir a janela de fechar automaticamente
     if (result.error) {
@@ -75,6 +79,7 @@ function limparCampos() {
     document.getElementById('txtSenha').value = "";
     document.getElementById('txtNome').focus();
     document.getElementById('notificacao').innerText = "Comece digitando um Nome, depois Login e por fim a Senha. (TODOS OS CAMPOS SÃO OBRIGATÓRIOS!)";
+    alert("Comece digitando um Nome, depois Login e por fim a Senha. (TODOS OS CAMPOS SÃO OBRIGATÓRIOS!)");
 }
 
 limparCampos();

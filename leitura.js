@@ -27,13 +27,10 @@ document.getElementById('frmLeitura').addEventListener('submit', async (e) => {
         return false;
     }
 
-    const senha = txtSenha.value;
-    const tipo = 'leitura';
-
-    const response = await fetch('/api/mysql', {
+    const response = await fetch('/leitura', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, login, senha, tipo })
+        body: JSON.stringify({ nome, login, tipo })
     });
 
     const result = await response.json();
@@ -47,9 +44,8 @@ document.getElementById('frmLeitura').addEventListener('submit', async (e) => {
 
     let exibir = (linhas.length > 0) ? " Exibindo o primeiro." : " Nada a exibir.";
 
-    // notificacao.innerText = "Foi/foram encontrado(s) " + linhas.length + " resultado(s)." + exibir;
+    notificacao.innerText = "Foi/foram encontrado(s) " + linhas.length + " resultado(s)." + exibir;
     alert("Foi/foram encontrado(s) " + linhas.length + " resultado(s)." + exibir);
-    // console.log(linhas);
 
     if (linhas.length > 1) {
         liberarAvancar();
@@ -77,12 +73,10 @@ document.getElementById('btnPrimeiroRegistro').addEventListener('click', async (
 
     const notificacao = document.getElementById('notificacao');
 
-    const tipo = 'primeiro';
-
-    const response = await fetch('/api/mysql', {
+    const response = await fetch('/leitura', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, login, senha, tipo })
+        body: JSON.stringify({ nome, login, domain })
     });
 
     const result = await response.json();
@@ -91,7 +85,7 @@ document.getElementById('btnPrimeiroRegistro').addEventListener('click', async (
     if (result.error) {
         console.error(result.error);
         liberarAvancar();
-        // notificacao.innerText = "Você chegou ao primeiro registro.";
+        notificacao.innerText = "Você chegou ao primeiro registro.";
         alert("Você chegou ao primeiro registro.");
         return false;
     }
@@ -108,7 +102,7 @@ document.getElementById('btnPrimeiroRegistro').addEventListener('click', async (
         txtLogin.value = result.login;
     }
 
-    // notificacao.innerText = "Primeiro registro posicionado com sucesso";
+    notificacao.innerText = "Primeiro registro posicionado com sucesso";
     alert("Primeiro registro posicionado com sucesso");
     // console.log(result.linhas);
     
@@ -132,16 +126,13 @@ document.getElementById('btnRegistroAnterior').addEventListener('click', async (
     const id = txtId.value.trim();
     const nome = hdnPesquisaNome.value.trim();
     const login = hdnPesquisaLogin.value.trim();
-    const senha = txtSenha.value.trim();
 
     const notificacao = document.getElementById('notificacao');
 
-    const tipo = 'anterior';
-
-    const response = await fetch('/api/mysql', {
+    const response = await fetch('/anterior', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, login, senha, tipo, id })
+        body: JSON.stringify({ id, nome, login, domain })
     });
 
     const result = await response.json();
@@ -150,7 +141,7 @@ document.getElementById('btnRegistroAnterior').addEventListener('click', async (
     if (result.error) {
         console.error(result.error);
         liberarAvancar();
-        // notificacao.innerText = "Você chegou ao primeiro registro.";
+        notificacao.innerText = "Você chegou ao primeiro registro.";
         alert("Você chegou ao primeiro registro.");
         return false;
     }
@@ -168,7 +159,7 @@ document.getElementById('btnRegistroAnterior').addEventListener('click', async (
     }
 
     if (result.linhas) {
-        // notificacao.innerText = "Registro anterior posicionado com sucesso.";
+        notificacao.innerText = "Registro anterior posicionado com sucesso.";
         alert("Registro anterior posicionado com sucesso.");
         liberarTodos();
     } else {
@@ -190,25 +181,21 @@ document.getElementById('btnProximoRegistro').addEventListener('click', async (e
     const id = txtId.value.trim();
     const nome = hdnPesquisaNome.value.trim();
     const login = hdnPesquisaLogin.value.trim();
-    const senha = txtSenha.value.trim();
 
     const notificacao = document.getElementById('notificacao');
 
-    const tipo = 'proximo';
-
-    const response = await fetch('/api/mysql', {
+    const response = await fetch('/leitura', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, login, senha, tipo, id })
+        body: JSON.stringify({ id, nome, login, domain })
     });
 
     const result = await response.json();
-    // console.log(result.message);
 
     if (result.error) {
         console.error(result.error);
         liberarRetroceder();
-        // notificacao.innerText = "Você chegou ao último registro.";
+        notificacao.innerText = "Você chegou ao último registro.";
         alert("Você chegou ao último registro.");
         return false;
     }
@@ -227,7 +214,7 @@ document.getElementById('btnProximoRegistro').addEventListener('click', async (e
 
     if (result.linhas) {
         linhas = result.linhas;
-        // notificacao.innerText = "Próximo registro posicionado com sucesso.";
+        notificacao.innerText = "Próximo registro posicionado com sucesso.";
         alert("Próximo registro posicionado com sucesso.");
         liberarTodos();
     } else {
@@ -255,10 +242,10 @@ document.getElementById('btnUltimoRegistro').addEventListener('click', async (e)
 
     const tipo = 'ultimo';
 
-    const response = await fetch('/api/mysql', {
+    const response = await fetch('/ultimo', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, login, senha, tipo })
+        body: JSON.stringify({ nome, login, domain })
     });
 
     const result = await response.json();
@@ -267,7 +254,7 @@ document.getElementById('btnUltimoRegistro').addEventListener('click', async (e)
     if (result.error) {
         console.error(result.error);
         liberarRetroceder();
-        // notificacao.innerText = "Você chegou ao último registro.";
+        notificacao.innerText = "Você chegou ao último registro.";
         alert("Você chegou ao último registro.");
         return false;
     }
@@ -284,9 +271,8 @@ document.getElementById('btnUltimoRegistro').addEventListener('click', async (e)
         txtLogin.value = result.login;
     }
 
-    // notificacao.innerText = "Último registro posicionado com sucesso.";
+    notificacao.innerText = "Último registro posicionado com sucesso.";
     alert("Último registro posicionado com sucesso.");
-    // console.log(result.linhas);
     
     linhas = result.linhas;
     if (linhas.length > 1) {
@@ -307,12 +293,13 @@ function limparCampos() {
     const txtNome = document.getElementById('txtNome');
     const txtLogin = document.getElementById('txtLogin');
     const txtSenha = document.getElementById('txtSenha');
+    const notificacao = document.getElementById('notificacao');
 
     txtId.value = "";
     txtNome.value = "";
     txtLogin.value = "";
     txtSenha.value = "";
-    // notificacao.innerText = "Digite um nome para pesquisar.";
+    notificacao.innerText = "Digite um nome para pesquisar.";
     alert("Digite um nome para pesquisar.");
 
     txtNome.focus();
@@ -367,13 +354,3 @@ function bloquearTodos() {
 }
 
 bloquearTodos();
-
-// window.addEventListener('click', async (e) => {
-//     e.preventDefault();
-
-//     const hdnPesquisaNome = document.getElementById("hdnPesquisaNome");
-//     const hdnPesquisaLogin = document.getElementById("hdnPesquisaLogin");
-
-//     console.log("hdnPesquisaNome.value: ", hdnPesquisaNome.value);
-//     console.log("hdnPesquisaLogin.value: ", hdnPesquisaLogin.value);
-// });

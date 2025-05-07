@@ -18,12 +18,10 @@ document.getElementById('frmRemocao').addEventListener('submit', async (e) => {
         return false;
     }
 
-    const tipo = 'remover';
-
-    const response = await fetch('/api/mysql', {
+    const response = await fetch('/remover', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, login, senha, tipo, id })
+        body: JSON.stringify({ id, domain })
     });
 
     const result = await response.json();
@@ -42,12 +40,11 @@ window.addEventListener('load', async (e) => {
     const senha = document.getElementById('txtSenha').value;
     const id = document.getElementById('txtId').value;
     const selId = document.getElementById('selId');
-    const tipo = 'atualizacao';
 
-    const response = await fetch('/api/mysql', {
+    const response = await fetch('/atualizacao', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, login, senha, tipo, id })
+        body: JSON.stringify({ domain })
     });
 
     const result = await response.json();
@@ -63,6 +60,7 @@ window.addEventListener('load', async (e) => {
         selId.add(optTmp);
     }
     notificacao.innerText = "Dados carregados com sucesso!";
+    alert("Dados carregados com sucesso!");
 });
 
 document.getElementById('selId').addEventListener('change', () => {

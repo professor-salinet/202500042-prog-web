@@ -40,19 +40,18 @@ document.getElementById('frmAtualizacao').addEventListener('submit', async (e) =
         return false;
     }
 
-    const tipo = 'atualizar';
-
-    const response = await fetch('/api/mysql', {
+    const response = await fetch('/atualizar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, login, senha, tipo, id })
+        body: JSON.stringify({ nome, login, senha, domain })
     });
 
     const result = await response.json();
-    console.log(result.message);
+    // console.log(result.message);
 
     selId.text = txtNome.value;
     notificacao.innerText = result.message;
+    alert(result.message);
 });
 
 window.addEventListener('load', async (e) => {
@@ -66,7 +65,7 @@ window.addEventListener('load', async (e) => {
     const selId = document.getElementById('selId');
     const tipo = 'atualizacao';
 
-    const response = await fetch('/api/mysql', {
+    const response = await fetch('/atualizacao', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nome, login, senha, tipo, id })
@@ -85,6 +84,7 @@ window.addEventListener('load', async (e) => {
         selId.add(optTmp);
     }
     notificacao.innerText = "Dados carregados com sucesso!";
+    alert("Dados carregados com sucesso!");
 });
 
 document.getElementById('selId').addEventListener('change', () => {
