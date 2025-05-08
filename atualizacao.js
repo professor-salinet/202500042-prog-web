@@ -1,3 +1,5 @@
+var domain = window.location.hostname;
+
 document.getElementById('frmAtualizacao').addEventListener('submit', async (e) => {
     e.preventDefault();
     const id = document.getElementById('selId').value;
@@ -47,7 +49,6 @@ document.getElementById('frmAtualizacao').addEventListener('submit', async (e) =
     });
 
     const result = await response.json();
-    // console.log(result.message);
 
     selId.text = txtNome.value;
     notificacao.innerText = result.message;
@@ -57,25 +58,18 @@ document.getElementById('frmAtualizacao').addEventListener('submit', async (e) =
 window.addEventListener('load', async (e) => {
     e.preventDefault();
 
-    const nome = document.getElementById('txtNome').value;
-    const login = document.getElementById('txtLogin').value;
     const notificacao = document.getElementById('notificacao');
-    const senha = document.getElementById('txtSenha').value;
-    const id = document.getElementById('txtId').value;
     const selId = document.getElementById('selId');
-    const tipo = 'atualizacao';
 
     const response = await fetch('/atualizacao', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, login, senha, tipo, id })
+        body: JSON.stringify({ domain })
     });
 
     const result = await response.json();
-    // console.log(result.rows.length);
     let optTmp;
     for (let i = 0; i < result.rows.length; i++) {
-        // console.log(result.rows[i].id);
         optTmp = document.createElement("option");
         optTmp.value = result.rows[i].id;
         optTmp.text = result.rows[i].nome;
@@ -95,16 +89,15 @@ document.getElementById('selId').addEventListener('change', () => {
     let selId = document.getElementById("selId");
 
     selId = selId.options[selId.selectedIndex];
-    // console.log(selId);
     if (selId.dataset.login) {
         txtId.value = selId.value;
         txtNome.value = selId.text;
         txtLogin.value = selId.dataset.login;
-        txtSenha.value = selId.dataset.senha;
+        // txtSenha.value = selId.dataset.senha;
     } else {
         txtId.value = "";
         txtNome.value = "";
         txtLogin.value = "";
-        txtSenha.value = "";
+        // txtSenha.value = "";
     }
 });

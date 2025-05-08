@@ -1,3 +1,4 @@
+var domain = window.location.hostname;
 var linhas = [];
 
 document.getElementById('frmLeitura').addEventListener('submit', async (e) => {
@@ -30,11 +31,10 @@ document.getElementById('frmLeitura').addEventListener('submit', async (e) => {
     const response = await fetch('/leitura', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, login, tipo })
+        body: JSON.stringify({ nome, login, domain })
     });
 
     const result = await response.json();
-    // console.log(result.message);
 
     txtId.value = result.id;
     txtNome.value = result.nome;
@@ -50,9 +50,6 @@ document.getElementById('frmLeitura').addEventListener('submit', async (e) => {
     if (linhas.length > 1) {
         liberarAvancar();
     }
-
-    // console.log("hdnPesquisaNome.value: ", hdnPesquisaNome.value);
-    // console.log("hdnPesquisaLogin.value: ", hdnPesquisaLogin.value);
 });
 
 document.getElementById('btnPrimeiroRegistro').addEventListener('click', async (e) => {
@@ -80,7 +77,6 @@ document.getElementById('btnPrimeiroRegistro').addEventListener('click', async (
     });
 
     const result = await response.json();
-    // console.log(result.message);
 
     if (result.error) {
         console.error(result.error);
@@ -104,7 +100,6 @@ document.getElementById('btnPrimeiroRegistro').addEventListener('click', async (
 
     notificacao.innerText = "Primeiro registro posicionado com sucesso";
     alert("Primeiro registro posicionado com sucesso");
-    // console.log(result.linhas);
     
     linhas = result.linhas;
     if (linhas.length > 1) {
@@ -136,7 +131,6 @@ document.getElementById('btnRegistroAnterior').addEventListener('click', async (
     });
 
     const result = await response.json();
-    // console.log(result.message);
 
     if (result.error) {
         console.error(result.error);
@@ -228,19 +222,14 @@ document.getElementById('btnUltimoRegistro').addEventListener('click', async (e)
     const txtId = document.getElementById('txtId');
     const txtNome = document.getElementById('txtNome');
     const txtLogin = document.getElementById('txtLogin');
-    const txtSenha = document.getElementById('txtSenha');
 
     const hdnPesquisaNome = document.getElementById("hdnPesquisaNome");
     const hdnPesquisaLogin = document.getElementById("hdnPesquisaLogin");
 
-    const id = txtId.value.trim();
     const nome = hdnPesquisaNome.value.trim();
     const login = hdnPesquisaLogin.value.trim();
-    const senha = txtSenha.value.trim();
 
     const notificacao = document.getElementById('notificacao');
-
-    const tipo = 'ultimo';
 
     const response = await fetch('/ultimo', {
         method: 'POST',
@@ -249,7 +238,6 @@ document.getElementById('btnUltimoRegistro').addEventListener('click', async (e)
     });
 
     const result = await response.json();
-    // console.log(result.message);
 
     if (result.error) {
         console.error(result.error);

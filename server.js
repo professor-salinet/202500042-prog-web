@@ -146,6 +146,120 @@ app.post('/leitura', async (req, res) => {
     }
 });
 
+app.post('/atualizacao', async (req, res) => {
+
+    const { domain } = req.body;
+
+    validateDomain(domain);
+
+    try {
+        strSql = "select * from `" + srvDatabase + "`.`tbl_login` order by `id` asc;";
+        var [rows, fields] = await pool.query(strSql);
+        if (rows.length > 0) {
+            res.json({ 
+                message: 'Nome, login e senhas encontrados com sucesso!',
+                rows: rows
+            });
+        } else {
+            throw ("Não há registro algum na tabela tbl_login!");
+        }
+    } catch (err) {
+        // console.error(err); // aqui não vai aparecer o erro no console, pois este arquivo não é processado pelo frontend, mas sim pelo backend (node server.js)
+        res.status(500).json({ 
+            message: `Erro de atualização: ${err}`,
+            error: `Erro de atualização: ${err}`
+        });
+    }
+});
+
+app.post('/atualizar', async (req, res) => {
+
+    const { nome, login, domain } = req.body;
+
+    validateDomain(domain);
+
+    try {
+        var addId = "";
+        var addNome = "";
+        var addLogin = "";
+        var addSenha = "";
+        var addAnd = "";
+
+        if (id.trim().length > 0) {
+            addId = id;
+        }
+
+        if (nome.trim().length > 0) {
+            addNome = " `nome` = '" + nome + "' ";
+        }
+
+        if (login.trim().length > 0) {
+            addLogin = " `login` = '" + login + "' ";
+        }
+
+        if (addNome.length > 0) {
+            addLogin = " , " + addLogin;
+        }
+
+        if (senha.trim().length > 0) {
+            addSenha = " `senha` = md5('" + senha + "') ";
+        }
+
+        if (addLogin.length > 0) {
+            addSenha = " , " + addSenha;
+        }
+
+        strSql = "update `" + srvDatabase + "`.`tbl_login` set " + 
+            addNome + addLogin + addSenha + 
+            " where `id` = " + addId + ";";
+        var [rows, fields] = await pool.query(strSql);
+        if (rows.affectedRows > 0) {
+            res.json({ 
+                message: 'Registro atualizado com sucesso!'
+            });
+        } else {
+            throw ("Não foi possível atualizar o id: " + addId + " na tabela tbl_login!");
+        }
+    } catch (err) {
+        // console.error(err); // aqui não vai aparecer o erro no console, pois este arquivo não é processado pelo frontend, mas sim pelo backend (node server.js)
+        res.status(500).json({ 
+            message: `Erro de atualizar: ${err}`,
+            error: `Erro de atualizar: ${err}`
+        });
+    }
+});
+
+app.post('/remover', async (req, res) => {
+
+    const { id, domain } = req.body;
+
+    validateDomain(domain);
+
+    try {
+        var addId = "";
+
+        if (id.trim().length > 0) {
+            addId = id;
+        }
+
+        strSql = "delete from `" + srvDatabase + "`.`tbl_login` where `id` = " + addId + ";";
+        var [rows, fields] = await pool.query(strSql);
+        if (rows.affectedRows > 0) {
+            res.json({ 
+                message: 'Registro removido com sucesso!'
+            });
+        } else {
+            throw ("Não foi possível remover o id: " + addId + " na tabela tbl_login!");
+        }
+    } catch (err) {
+        // console.error(err); // aqui não vai aparecer o erro no console, pois este arquivo não é processado pelo frontend, mas sim pelo backend (node server.js)
+        res.status(500).json({ 
+            message: `Erro de remover: ${err}`,
+            error: `Erro de remover: ${err}`
+        });
+    }
+});
+
 app.post('/anterior', async (req, res) => {
 
     const { id, nome, login, domain } = req.body;
@@ -302,120 +416,6 @@ app.post('/ultimo', async (req, res) => {
         res.status(500).json({ 
             message: `Erro de último: ${err}`,
             error: `Erro de último: ${err}`
-        });
-    }
-});
-
-app.post('/atualizacao', async (req, res) => {
-
-    const { domain } = req.body;
-
-    validateDomain(domain);
-
-    try {
-        strSql = "select * from `" + srvDatabase + "`.`tbl_login` order by `id` asc;";
-        var [rows, fields] = await pool.query(strSql);
-        if (rows.length > 0) {
-            res.json({ 
-                message: 'Nome, login e senhas encontrados com sucesso!',
-                rows: rows
-            });
-        } else {
-            throw ("Não há registro algum na tabela tbl_login!");
-        }
-    } catch (err) {
-        // console.error(err); // aqui não vai aparecer o erro no console, pois este arquivo não é processado pelo frontend, mas sim pelo backend (node server.js)
-        res.status(500).json({ 
-            message: `Erro de atualização: ${err}`,
-            error: `Erro de atualização: ${err}`
-        });
-    }
-});
-
-app.post('/atualizar', async (req, res) => {
-
-    const { nome, login, domain } = req.body;
-
-    validateDomain(domain);
-
-    try {
-        var addId = "";
-        var addNome = "";
-        var addLogin = "";
-        var addSenha = "";
-        var addAnd = "";
-
-        if (id.trim().length > 0) {
-            addId = id;
-        }
-
-        if (nome.trim().length > 0) {
-            addNome = " `nome` = '" + nome + "' ";
-        }
-
-        if (login.trim().length > 0) {
-            addLogin = " `login` = '" + login + "' ";
-        }
-
-        if (addNome.length > 0) {
-            addLogin = " , " + addLogin;
-        }
-
-        if (senha.trim().length > 0) {
-            addSenha = " `senha` = md5('" + senha + "') ";
-        }
-
-        if (addLogin.length > 0) {
-            addSenha = " , " + addSenha;
-        }
-
-        strSql = "update `" + srvDatabase + "`.`tbl_login` set " + 
-            addNome + addLogin + addSenha + 
-            " where `id` = " + addId + ";";
-        var [rows, fields] = await pool.query(strSql);
-        if (rows.affectedRows > 0) {
-            res.json({ 
-                message: 'Registro atualizado com sucesso!'
-            });
-        } else {
-            throw ("Não foi possível atualizar o id: " + addId + " na tabela tbl_login!");
-        }
-    } catch (err) {
-        // console.error(err); // aqui não vai aparecer o erro no console, pois este arquivo não é processado pelo frontend, mas sim pelo backend (node server.js)
-        res.status(500).json({ 
-            message: `Erro de atualizar: ${err}`,
-            error: `Erro de atualizar: ${err}`
-        });
-    }
-});
-
-app.post('/remover', async (req, res) => {
-
-    const { id, domain } = req.body;
-
-    validateDomain(domain);
-
-    try {
-        var addId = "";
-
-        if (id.trim().length > 0) {
-            addId = id;
-        }
-
-        strSql = "delete from `" + srvDatabase + "`.`tbl_login` where `id` = " + addId + ";";
-        var [rows, fields] = await pool.query(strSql);
-        if (rows.affectedRows > 0) {
-            res.json({ 
-                message: 'Registro removido com sucesso!'
-            });
-        } else {
-            throw ("Não foi possível remover o id: " + addId + " na tabela tbl_login!");
-        }
-    } catch (err) {
-        // console.error(err); // aqui não vai aparecer o erro no console, pois este arquivo não é processado pelo frontend, mas sim pelo backend (node server.js)
-        res.status(500).json({ 
-            message: `Erro de remover: ${err}`,
-            error: `Erro de remover: ${err}`
         });
     }
 });

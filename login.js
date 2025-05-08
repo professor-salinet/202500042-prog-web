@@ -30,7 +30,6 @@ document.getElementById('frmLogin').addEventListener('submit', async (e) => {
     });
 
     const result = await response.json();
-    // console.log(result.message);
 
     if (result.error) {
         notificacao.innerText = result.error;

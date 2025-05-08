@@ -14,7 +14,6 @@ document.getElementById('frmCadastro').addEventListener('submit', async (e) => {
     const confirmacaoSenha = txtConfirmacaoSenha.value.trim();
 
     const notificacao = document.getElementById('notificacao');
-    const tipo = 'cadastro';
 
     if (nome.length == 0) {
         notificacao.innerText = "É necessário digitar um nome para continuar!";
@@ -54,7 +53,7 @@ document.getElementById('frmCadastro').addEventListener('submit', async (e) => {
     let msgErro = (result.error) ? " " + result.error : "";
     notificacao.innerText = result.message + msgErro;
     alert(result.message + msgErro);
-
+    limparCampos();
     // essa linha vai verificar se há uma mensagem de erro e vai impedir a janela de fechar automaticamente
     if (result.error) {
         txtLogin.focus();
@@ -77,6 +76,7 @@ function limparCampos() {
     document.getElementById('txtNome').value = "";
     document.getElementById('txtLogin').value = "";
     document.getElementById('txtSenha').value = "";
+    document.getElementById('txtConfirmacaoSenha').value = "";
     document.getElementById('txtNome').focus();
     document.getElementById('notificacao').innerText = "Comece digitando um Nome, depois Login e por fim a Senha. (TODOS OS CAMPOS SÃO OBRIGATÓRIOS!)";
     alert("Comece digitando um Nome, depois Login e por fim a Senha. (TODOS OS CAMPOS SÃO OBRIGATÓRIOS!)");

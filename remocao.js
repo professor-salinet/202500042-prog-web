@@ -1,3 +1,5 @@
+var domain = window.location.hostname;
+
 document.getElementById('frmRemocao').addEventListener('submit', async (e) => {
     e.preventDefault();
     const txtId = document.getElementById("txtId");
@@ -25,7 +27,6 @@ document.getElementById('frmRemocao').addEventListener('submit', async (e) => {
     });
 
     const result = await response.json();
-    console.log(result.message);
 
     limparCampos();
     notificacao.innerText = result.message;
@@ -48,10 +49,9 @@ window.addEventListener('load', async (e) => {
     });
 
     const result = await response.json();
-    // console.log(result.rows.length);
+
     let optTmp;
     for (let i = 0; i < result.rows.length; i++) {
-        // console.log(result.rows[i].id);
         optTmp = document.createElement("option");
         optTmp.value = result.rows[i].id;
         optTmp.text = result.rows[i].nome;
@@ -71,7 +71,6 @@ document.getElementById('selId').addEventListener('change', () => {
     let selId = document.getElementById("selId");
 
     selId = selId.options[selId.selectedIndex];
-    // console.log(selId);
     if (selId.dataset.login) {
         txtId.value = selId.value;
         txtNome.value = selId.text;
