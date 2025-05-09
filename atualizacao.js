@@ -1,36 +1,79 @@
 var domain = window.location.hostname;
+var minChars = 4;
 
 document.getElementById('frmAtualizacao').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const id = document.getElementById('selId').value;
-    const nome = document.getElementById('txtNome').value;
-    const login = document.getElementById('txtLogin').value;
-    const senha = document.getElementById('txtSenha').value;
-    const notificacao = document.getElementById('notificacao');
 
-    if (nome.trim().length == 0) {
-        notificacao.innerHTML = "<b class=\"text-danger\">É necessário digitar um nome para continuar.</b>";
-        txtNome.focus();
-        return false;
-    }
-
-    if (login.trim().length == 0) {
-        notificacao.innerHTML = "<b class=\"text-danger\">É necessário digitar um login para continuar.</b>";
-        txtLogin.focus();
-        return false;
-    }
-
-    if (senha.trim().length == 0) {
-        notificacao.innerHTML = "<b class=\"text-danger\">É necessário digitar uma senha para continuar.</b>";
-        txtSenha.focus();
-        return false;
-    }
+    var selId = document.getElementById("selId");
 
     const txtId = document.getElementById("txtId");
     const txtNome = document.getElementById("txtNome");
     const txtLogin = document.getElementById("txtLogin");
     const txtSenha = document.getElementById("txtSenha");
-    var selId = document.getElementById("selId");
+    const txtConfirmarSenha = document.getElementById("txtConfirmarSenha");
+
+    const txtNomeNotify = document.getElementById("txtNomeNotify");
+    txtNomeNotify.classList.add("collapse");
+    const txtLoginNotify = document.getElementById("txtLoginNotify");
+    txtLoginNotify.classList.add("collapse");
+    const txtSenhaNotify = document.getElementById("txtSenhaNotify");
+    txtSenhaNotify.classList.add("collapse");
+    const txtConfirmarSenhaNotify = document.getElementById("txtConfirmarSenhaNotify");
+    txtConfirmarSenhaNotify.classList.add("collapse");
+
+    const id = txtId.value.trim();
+    const nome = txtNome.value.trim();
+    const login = txtLogin.value.trim();
+    const senha = txtSenha.value.trim();
+    const confirmarSenha = txtConfirmarSenha.value.trim();
+
+    const notificacao = document.getElementById('notificacao');
+
+    if (nome.length == 0) {
+        txtNomeNotify.innerHTML = "<b class=\"text-danger\">É necessário digitar um nome para continuar.</b>";
+        txtNomeNotify.classList.remove("collapse");
+        txtNome.focus();
+        return false;
+    } else if (nome.length < minChars) {
+        notificacao.innerHTML = "<b class=\"text-danger\">É necessário digitar ao menos " + minChars + " caracteres/letras no nome para continuar.</b>";
+        alert(notificacao.innerText);
+        txtNome.focus();
+        return false;
+    }
+
+    if (login.length == 0) {
+        notificacao.innerHTML = "<b class=\"text-danger\">É necessário digitar um login para continuar.</b>";
+        alert(notificacao.innerText);
+        txtLogin.focus();
+        return false;
+    } else if (login.length < minChars) {
+        notificacao.innerHTML = "<b class=\"text-danger\">É necessário digitar ao menos " + minChars + " caracteres/letras no login para continuar.</b>";
+        alert(notificacao.innerText);
+        txtLogin.focus();
+        return false;
+    }
+
+    if (senha.length > 0 && senha.length < minChars) {
+        notificacao.innerHTML = "<b class=\"text-danger\">É necessário digitar ao menos " + minChars + " caracteres/letras na senha para continuar.</b>";
+        alert(notificacao.innerText);
+        txtSenha.focus();
+        return false;
+    }
+
+    if (confirmarSenha.length > 0 && confirmarSenha.length < minChars) {
+        notificacao.innerHTML = "<b class=\"text-danger\">É necessário digitar ao menos " + minChars + " caracteres/letras na confirmação de senha para continuar.</b>";
+        alert(notificacao.innerText);
+        txtConfirmarSenha.focus();
+        return false;
+    }
+
+    if (senha != confirmarSenha) {
+        notificacao.innerHTML = "<b class=\"text-danger\">Ops! As senhas não conferem. Verifique a digitação, digite e tente novamente</b>";
+        alert(notificacao.innerText);
+        txtConfirmarSenha.focus();
+        return false;
+    }
+
     selId = selId.options[selId.selectedIndex];
 
     if (
@@ -45,7 +88,7 @@ document.getElementById('frmAtualizacao').addEventListener('submit', async (e) =
     const response = await fetch('/atualizar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, login, senha, domain })
+        body: JSON.stringify({ id, nome, login, senha, domain })
     });
 
     const result = await response.json();

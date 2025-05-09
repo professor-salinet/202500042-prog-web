@@ -174,7 +174,7 @@ app.post('/atualizacao', async (req, res) => {
 
 app.post('/atualizar', async (req, res) => {
 
-    const { nome, login, domain } = req.body;
+    const { id, nome, login, senha, domain } = req.body;
 
     validateDomain(domain);
 
@@ -183,7 +183,6 @@ app.post('/atualizar', async (req, res) => {
         var addNome = "";
         var addLogin = "";
         var addSenha = "";
-        var addAnd = "";
 
         if (id.trim().length > 0) {
             addId = id;
@@ -205,7 +204,7 @@ app.post('/atualizar', async (req, res) => {
             addSenha = " `senha` = md5('" + senha + "') ";
         }
 
-        if (addLogin.length > 0) {
+        if (addLogin.length > 0 && addSenha.length > 0) {
             addSenha = " , " + addSenha;
         }
 
@@ -223,7 +222,7 @@ app.post('/atualizar', async (req, res) => {
     } catch (err) {
         // console.error(err); // aqui não vai aparecer o erro no console, pois este arquivo não é processado pelo frontend, mas sim pelo backend (node server.js)
         res.status(500).json({ 
-            message: `Erro de atualizar: ${err}`,
+            message: `Erro de atualizar: ${err} - sql: ${strSql}`,
             error: `Erro de atualizar: ${err}`
         });
     }
