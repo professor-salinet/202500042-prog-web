@@ -2,14 +2,43 @@
 import express from 'express';
 import mysql from 'mysql2/promise';
 import cors from 'cors';
+import multer from 'multer';
+import fs from 'fs-extra';
+import path from 'path';
 
 const app = express();
 const PORT = 80;
+const UPLOAD_DIR_TMP = './uploads';
+
+async function ensureDirectoryExists(dirPath) {
+    try {
+        await fs.ensureDir(dirPath);
+        console.log(`Diretório criado ou já existente: ${dirPath}`);
+    } catch (err) {
+        console.error(`Ocorreu um erro ao criar o diretório: ${err}`);
+    }
+}
+
+ensureDirectoryExists(UPLOAD_DIR_TMP);
+
+// Configuração do Multer para onde os arquivos serão armazenados
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, UPLOAD_DIR_TMP); // Os arquivos serão salvos na pasta 'uploads'
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+    }
+});
+const upload = multer({ storage: storage });
+
 var strSql = "";
 var pool;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('.'));
 
 // Aqui estou definindo as variáveis padrão para uso na conexão com o servidor mysql local
@@ -418,6 +447,56 @@ app.post('/ultimo', async (req, res) => {
         });
     }
 });
+
+app.post('/upload/file', async (req, res) => {
+
+    const { id, arquivo, domain } = req.body;
+    const filename = req.headers['file-name'];
+
+    validateDomain(domain);
+
+    try {
+        const filePath = path.join(uploadDir, filename);
+        let data = [];
+
+        req.on('data', chunk => {
+            data.push(chunk);
+        });
+
+        req.on('end', () => {
+            const buffer = Buffer.concat(data);
+
+            fs.writeFile(filePath, buffer, err => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).json({ 
+                        message: `Ocorreu um erro ao salvar arquivo!`,
+                        error: `Erro do servidor: ${err}`
+                    });
+                }
+                res.json({
+                    message: 'Arquivo enviado com sucesso!',
+                    filename: filePath.split('/').pop()
+                });
+            });
+        });
+
+        req.on('error', err => {
+            console.error(err);
+            res.status(500).json({ 
+                message: `Erro de envio do arquivo durante o upload!`,
+                error: `Erro do servidor: ${err}`
+            });
+        });
+    } catch (err) {
+        // console.error(err); // aqui não vai aparecer o erro no console, pois este arquivo não é processado pelo frontend, mas sim pelo backend (node server.js)
+        res.status(500).json({ 
+            message: `Erro de último: ${err}`,
+            error: `Erro de último: ${err}`
+        });
+    }
+});
+
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}`);

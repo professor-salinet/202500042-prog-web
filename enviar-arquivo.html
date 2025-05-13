@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar arquivo</title>
+    <script src="./session.js"></script>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="./cookies.css" />
+    <link rel="shortcut icon" href="./homer.png" />
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Enviar arquivo</h2>
+        <img src="./avatar-gray.png" id="imgAvatar" />
+        <form id="frmEnviarArquivo" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="txtNomeArquivo" class="form-label">Nome do arquivo:</label>
+                <input type="text" class="form-control" id="txtNomeArquivo">
+            </div>
+            <div class="mb-3">
+                <label for="fileInput" class="form-label">Selecionar arquivo:</label>
+                <input type="file" class="form-control" id="fileInput">
+            </div>
+            <button type="submit" class="btn btn-success">Enviar</button>
+        </form>
+        <h6 id="notificacao"></h6>
+    </div>
+    <script src="./cookies.js"></script>
+    <script src="./enviar-arquivo.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>
+</body>
+</html>
