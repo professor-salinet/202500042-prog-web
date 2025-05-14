@@ -21,9 +21,11 @@ document.getElementById('frmEnviarArquivo').addEventListener('submit', async (e)
     e.preventDefault();
 
     const txtNomeArquivo = document.getElementById("txtNomeArquivo");
+    const nomeArquivo = txtNomeArquivo.value;
     const notificacao = document.getElementById("notificacao");
     const fileInput = document.getElementById("fileInput");
     const file = fileInput.files[0];
+    const id = "1";
 
     if (txtNomeArquivo.value.trim().length == 0) {
         notificacao.innerText = "É necessário preencher um nome para prosseguir!";
@@ -32,19 +34,22 @@ document.getElementById('frmEnviarArquivo').addEventListener('submit', async (e)
         return false;
     }
 
-    if (file) {
-        const reader = new FileReader();
+    try {
+        if (file) {
+            const reader = new FileReader();
 
-        reader.onload = async () => {
-            const base64String = reader.result.split(',')[1]; // Remove o prefixo 'data:application/...' ou similar
+            reader.onload = async () => {
+                const base64String = reader.result.split(',')[1]; // Remove o prefixo 'data:application/...' ou similar
 
-            const jsonData = {
-                nomeArquivo: file.name,
-                tipoArquivo: file.type,
-                conteudoBase64: base64String,
-            };
+                const jsonData = {
+                    nomeArquivo: file.name,
+                    tipoArquivo: file.type,
+                    conteudoBase64: base64String,
+                    id: id,
+                    nome: nomeArquivo,
+                    domain: domain
+                };
 
-            try {
                 const response = await fetch('/upload/file', {
                     method: 'POST',
                     headers: {
@@ -55,22 +60,22 @@ document.getElementById('frmEnviarArquivo').addEventListener('submit', async (e)
 
                 const data = await response.text();
                 notificacao.textContent = data;
-            } catch (error) {
-                notificacao.textContent = 'Ocorreu um erro ao enviar o arquivo via JSON.';
-                console.error(error);
-            }
-        };
+            };
 
-        reader.onerror = () => {
-            notificacao.innerText = 'Erro ao ler o arquivo.';
-        };
+            reader.onerror = () => {
+                notificacao.innerText = 'Erro ao ler o arquivo.';
+            };
 
-        reader.readAsDataURL(file); // Lê o arquivo como uma URL de dados (data URL)
-    } else {
-        notificacao.innerText = 'Por favor, selecione um arquivo.';
-        alert(notificacao.innerText);
-        fileInput.focus();
-        return false;
+            reader.readAsDataURL(file); // Lê o arquivo como uma URL de dados (data URL)
+        } else {
+            notificacao.innerText = 'Por favor, selecione um arquivo.';
+            alert(notificacao.innerText);
+            fileInput.focus();
+            return false;
+        }
+    } catch (error) {
+        notificacao.textContent = 'Ocorreu um erro ao enviar o arquivo via JSON.';
+        console.error(error);
     }
 
     // const response = await fetch('/upload/file', {

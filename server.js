@@ -21,18 +21,6 @@ async function ensureDirectoryExists(dirPath) {
 
 ensureDirectoryExists(UPLOAD_DIR_TMP);
 
-// Configuração do Multer para onde os arquivos serão armazenados
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, UPLOAD_DIR_TMP); // Os arquivos serão salvos na pasta 'uploads'
-    },
-    filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-    }
-});
-const upload = multer({ storage: storage });
-
 var strSql = "";
 var pool;
 
@@ -450,7 +438,19 @@ app.post('/ultimo', async (req, res) => {
 
 app.post('/upload/file', async (req, res) => {
 
-    const { id, arquivo, domain } = req.body;
+    // Configuração do Multer para onde os arquivos serão armazenados
+    const storage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, UPLOAD_DIR_TMP); // Os arquivos serão salvos na pasta 'uploads'
+        },
+        filename: (req, file, cb) => {
+            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+            cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+        }
+    });
+    const uploadDir = multer({ storage: storage });
+
+    const { nomeArquivo, tipoArquivo, conteudoBase64, id, nome, domain } = req.body;
     const filename = req.headers['file-name'];
 
     validateDomain(domain);
@@ -491,8 +491,8 @@ app.post('/upload/file', async (req, res) => {
     } catch (err) {
         // console.error(err); // aqui não vai aparecer o erro no console, pois este arquivo não é processado pelo frontend, mas sim pelo backend (node server.js)
         res.status(500).json({ 
-            message: `Erro de último: ${err}`,
-            error: `Erro de último: ${err}`
+            message: `Erro de envio de arquivo: ${err}`,
+            error: `Erro de envio de arquivo: ${err}`
         });
     }
 });
