@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD de telas</title>
+    <script src="./session.js"></script>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="./cookies.css" />
+    <link rel="shortcut icon" href="./homer.png" />
+</head>
+
+<body style="overflow: hidden;">
+    <script src="./modal.js"></script>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example" id="navBarTop">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
+                aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" onclick="redimensionarIFrame()"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarsExample03">
+                <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Opções</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="javascript:mostrarPagina('./enviar-arquivo.html?redirect=false')">
+                                    <i class="fa-solid fa-upload"></i>
+                                    Enviar arquivo
+                                </a>
+                            </li>
+                            <hr class="divider" />
+                            <li>
+                                <a class="dropdown-item" href="javascript:mostrarPagina('./cadastro.html?redirect=false')">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                    Cadastro
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:mostrarPagina('./leitura.html?redirect=false')">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    Pesquisa
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:mostrarPagina('./atualizacao.html?redirect=false')">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    Atualização
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javascript:mostrarPagina('./remocao.html?redirect=false')">
+                                    <i class="fa-solid fa-trash"></i>
+                                    Remoção
+                                </a>
+                            </li>
+                            <hr class="divider" />
+                            <li>
+                                <a class="dropdown-item" href="./logout.html" title="Sair">
+                                    <i class="fa-solid fa-arrow-right-from-bracket text-danger"></i>
+                                    Sair
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex text-white">
+                <div class="p-2 flex-fill" id="cumprimento"></div>
+                <div class="p-2 flex-fill" id="data"></div>
+                <div class="p-2 flex-fill" id="horario"></div>
+            </div>
+        </div>
+    </nav>
+
+    <iframe id="ifPagina"></iframe>
+
+    <script src="./cookies.js"></script>
+
+    <script src="./index.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>
+</body>
+
+</html>

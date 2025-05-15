@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização</title>
+    <script src="./session.js"></script>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="./cookies.css" />
+    <link rel="shortcut icon" href="./homer.png" />
+</head>
+
+<body class="bg-light" style="overflow-x: hidden;">
+    <div class="container mt-3">
+        <h2 class="mb-4">Visualizar</h2>
+        <form id="frmLeitura">
+            <input type="hidden" id="hdnPesquisaNome" />
+            <input type="hidden" id="hdnPesquisaLogin" />
+            <div class="mb-3">
+                <label for="txtId" class="form-label">Id:</label>
+                <input type="text" class="form-control" id="txtId" data-index="0" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="txtNome" class="form-label">Nome:</label>
+                <input type="text" class="form-control" id="txtNome">
+            </div>
+            <div class="mb-3">
+                <label for="txtLogin" class="form-label">Login:</label>
+                <input type="text" class="form-control" id="txtLogin">
+            </div>
+            <div class="mb-3">
+                <label for="txtSenha" class="form-label">Senha:</label>
+                <input type="password" class="form-control" id="txtSenha" disabled>
+            </div>
+            <button type="submit" class="btn btn-info">
+                <i class="fa fa-magnifying-glass"></i>
+                Pesquisar
+            </button>
+            <a class="btn btn-primary" id="btnLimpar">
+                <i class="fa fa-broom color-red"></i>
+                Limpar
+            </a>
+        </form>
+        <hr class="divider">
+        <button class="btn btn-dark" id="btnPrimeiroRegistro">
+            <i class="fa fa-backward-fast"></i>
+            Primeiro
+        </button>
+        <button class="btn btn-dark" id="btnRegistroAnterior">
+            <i class="fa fa-backward-step"></i>
+            Anterior
+        </button>
+        <button class="btn btn-dark" id="btnProximoRegistro">
+            Próximo
+            <i class="fa fa-forward-step"></i>
+        </button>
+        <button class="btn btn-dark" id="btnUltimoRegistro">
+            Último
+            <i class="fa fa-forward-fast"></i>
+        </button>
+        <hr class="divider">
+        <h6 id="notificacao" class="align-items-center justify-content-center h-100 w-100">Digite o valor no campo que deseja pesquisar e clique em: "Pesquisar"</h6>
+    </div>
+    <script src="./cookies.js"></script>
+    <script src="./leitura.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualização</title>
+    <script src="./session.js"></script>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="./cookies.css" />
+    <link rel="shortcut icon" href="./homer.png" />
+</head>
+
+<body class="bg-light">
+    <div class="container mt-2">
+        <h2 class="mb-4">Atualização</h2>
+        <form id="frmAtualizacao">
+            <div class="mb-3">
+                <select id="selId" class="form-select" aria-label="Selecione aqui o registro">
+                    <option selected>Selecione aqui o registro</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="txtId" class="form-label">Id:</label>
+                <input type="text" class="form-control" id="txtId" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="txtNome" class="form-label">Nome:</label>
+                <input type="text" class="form-control" id="txtNome">
+                <div id="txtNomeNotify" class="form-text collapse text-danger"></div>
+            </div>
+            <div class="mb-3">
+                <label for="txtLogin" class="form-label">Login:</label>
+                <input type="text" class="form-control" id="txtLogin">
+                <div id="txtLoginNotify" class="form-text collapse text-danger"></div>
+            </div>
+            <div class="mb-3">
+                <label for="txtSenha" class="form-label">Senha:</label>
+                <input type="password" class="form-control" id="txtSenha">
+                <div id="txtSenhaNotify" class="form-text collapse text-danger"></div>
+            </div>
+            <div class="mb-3">
+                <label for="txtConfirmarSenha" class="form-label">Confirmar Senha:</label>
+                <input type="password" class="form-control" id="txtConfirmarSenha">
+                <div id="txtConfirmarSenhaNotify" class="form-text collapse text-danger"></div>
+            </div>
+            <button type="submit" class="btn btn-warning">Atualizar</button>
+        </form>
+        <hr class="divider" />
+        <h6 id="notificacao">Barra de notificações</h6>
+    </div>
+    <script src="./cookies.js"></script>
+    <script src="./atualizacao.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>
+</body>
+
+</html>

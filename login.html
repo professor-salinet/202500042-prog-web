@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="./cookies.css" />
+    <link rel="shortcut icon" href="./homer.png" />
+    <style>
+        .btn-secondary {
+            background-color: aqua;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="modal-dialog modal-sm">...</div>
+    <div class="container mt-5">
+        <h2 class="mb-4">Login</h2>
+        <h6 class="mb-4">Entre ou cadastre-se</h6>
+        <form id="frmLogin">
+            <div class="mb-3">
+                <label for="txtLogin" class="form-label">Login:</label>
+                <input type="text" class="form-control" id="txtLogin">
+            </div>
+            <div class="mb-3">
+                <label for="txtSenha" class="form-label">Senha:</label>
+                <input type="password" class="form-control" id="txtSenha">
+            </div>
+            <button type="submit" class="btn btn-primary">Entrar</button><br />
+            <a class="link" href="./cadastro.html">Cadastrar-se</a>
+        </form>
+        <h6 id="notificacao"></h6>
+    </div>
+    <script src="./cookies.js"></script>
+    <script src="./login.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>
+</body>
+
+</html>

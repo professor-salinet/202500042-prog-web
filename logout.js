@@ -1,0 +1,1 @@
+localStorage.removeItem('usuario_logado');
