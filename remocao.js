@@ -29,7 +29,7 @@ document.getElementById('frmRemocao').addEventListener('submit', async (e) => {
     const result = await response.json();
 
     limparCampos();
-    notificacao.innerText = result.message;
+    notificacao.innerHTML = result.message;
 });
 
 window.addEventListener('load', async (e) => {
@@ -59,8 +59,8 @@ window.addEventListener('load', async (e) => {
         optTmp.dataset.senha = result.rows[i].senha;
         selId.add(optTmp);
     }
-    notificacao.innerText = "Dados carregados com sucesso!";
-    alert("Dados carregados com sucesso!");
+    notificacao.innerHTML = "Dados carregados com sucesso!";
+    abrirModal(notificacao.innerHTML);
 });
 
 document.getElementById('selId').addEventListener('change', () => {

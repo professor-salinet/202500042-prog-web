@@ -437,62 +437,25 @@ app.post('/ultimo', async (req, res) => {
 });
 
 app.post('/upload/file', async (req, res) => {
-
-    // Configuração do Multer para onde os arquivos serão armazenados
-    const storage = multer.diskStorage({
-        destination: (req, file, cb) => {
-            cb(null, UPLOAD_DIR_TMP); // Os arquivos serão salvos na pasta 'uploads'
-        },
-        filename: (req, file, cb) => {
-            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-            cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-        }
-    });
-    const uploadDir = multer({ storage: storage });
-
     const { nomeArquivo, tipoArquivo, conteudoBase64, id, nome, domain } = req.body;
-    const filename = req.headers['file-name'];
 
     validateDomain(domain);
 
     try {
-        const filePath = path.join(uploadDir, filename);
-        let data = [];
+        const buffer = Buffer.from(conteudoBase64, 'base64');
+        const filePath = path.join(UPLOAD_DIR_TMP, Math.random() + '-' + nomeArquivo);
 
-        req.on('data', chunk => {
-            data.push(chunk);
-        });
+        await fs.writeFile(filePath, buffer);
 
-        req.on('end', () => {
-            const buffer = Buffer.concat(data);
-
-            fs.writeFile(filePath, buffer, err => {
-                if (err) {
-                    console.error(err);
-                    res.status(500).json({ 
-                        message: `Ocorreu um erro ao salvar arquivo!`,
-                        error: `Erro do servidor: ${err}`
-                    });
-                }
-                res.json({
-                    message: 'Arquivo enviado com sucesso!',
-                    filename: filePath.split('/').pop()
-                });
-            });
-        });
-
-        req.on('error', err => {
-            console.error(err);
-            res.status(500).json({ 
-                message: `Erro de envio do arquivo durante o upload!`,
-                error: `Erro do servidor: ${err}`
-            });
+        res.json({
+            message: `Arquivo ${nomeArquivo} enviado com sucesso!`,
+            filename: nomeArquivo
         });
     } catch (err) {
-        // console.error(err); // aqui não vai aparecer o erro no console, pois este arquivo não é processado pelo frontend, mas sim pelo backend (node server.js)
-        res.status(500).json({ 
+        console.error(err);
+        res.status(500).json({
             message: `Erro de envio de arquivo: ${err}`,
-            error: `Erro de envio de arquivo: ${err}`
+            error: `Erro do servidor: ${err}`
         });
     }
 });

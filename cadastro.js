@@ -1,11 +1,13 @@
 var domain = window.location.hostname;
 
+const txtNome = document.getElementById('txtNome');
+const txtLogin = document.getElementById('txtLogin');
+const txtSenha = document.getElementById('txtSenha');
+const txtConfirmacaoSenha = document.getElementById('txtConfirmacaoSenha');
+const notificacao = document.getElementById('notificacao');
+
 document.getElementById('frmCadastro').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const txtNome = document.getElementById('txtNome');
-    const txtLogin = document.getElementById('txtLogin');
-    const txtSenha = document.getElementById('txtSenha');
-    const txtConfirmacaoSenha = document.getElementById('txtConfirmacaoSenha');
 
     const id = "";
     const nome = txtNome.value.trim();
@@ -13,32 +15,30 @@ document.getElementById('frmCadastro').addEventListener('submit', async (e) => {
     const senha = txtSenha.value.trim();
     const confirmacaoSenha = txtConfirmacaoSenha.value.trim();
 
-    const notificacao = document.getElementById('notificacao');
-
     if (nome.length == 0) {
-        notificacao.innerText = "É necessário digitar um nome para continuar!";
-        alert("É necessário digitar um nome para continuar!");
+        notificacao.innerHTML = "É necessário digitar um nome para continuar!";
+        abrirModal(notificacao.innerHTML);
         txtNome.focus();
         return false;
     }
 
     if (login.length == 0) {
-        notificacao.innerText = "É necessário digitar um login para continuar!";
-        alert("É necessário digitar um login para continuar!");
+        notificacao.innerHTML = "É necessário digitar um login para continuar!";
+        abrirModal(notificacao.innerHTML);
         txtLogin.focus();
         return false;
     }
 
     if (senha.length == 0) {
-        notificacao.innerText = "É necessário digitar uma senha para continuar!";
-        alert("É necessário digitar uma senha para continuar!");
+        notificacao.innerHTML = "É necessário digitar uma senha para continuar!";
+        abrirModal(notificacao.innerHTML);
         txtSenha.focus();
         return false;
     }
 
     if (senha != confirmacaoSenha) {
-        notificacao.innerText = "Senhas não conferem!";
-        alert("Senhas não conferem!");
+        notificacao.innerHTML = "Senhas não conferem!";
+        abrirModal(notificacao.innerHTML);
         txtConfirmacaoSenha.focus();
         return false;
     }
@@ -51,8 +51,8 @@ document.getElementById('frmCadastro').addEventListener('submit', async (e) => {
 
     const result = await response.json();
     let msgErro = (result.error) ? " " + result.error : "";
-    notificacao.innerText = result.message + msgErro;
-    alert(result.message + msgErro);
+    notificacao.innerHTML = result.message + msgErro;
+    abrirModal(notificacao.innerHTML);
     limparCampos();
     // essa linha vai verificar se há uma mensagem de erro e vai impedir a janela de fechar automaticamente
     if (result.error) {
@@ -73,13 +73,13 @@ document.getElementById('frmCadastro').addEventListener('submit', async (e) => {
 });
 
 function limparCampos() {
-    document.getElementById('txtNome').value = "";
-    document.getElementById('txtLogin').value = "";
-    document.getElementById('txtSenha').value = "";
-    document.getElementById('txtConfirmacaoSenha').value = "";
-    document.getElementById('txtNome').focus();
-    document.getElementById('notificacao').innerText = "Comece digitando um Nome, depois Login e por fim a Senha. (TODOS OS CAMPOS SÃO OBRIGATÓRIOS!)";
-    alert("Comece digitando um Nome, depois Login e por fim a Senha. (TODOS OS CAMPOS SÃO OBRIGATÓRIOS!)");
+    txtNome.value = "";
+    txtLogin.value = "";
+    txtSenha.value = "";
+    txtConfirmacaoSenha.value = "";
+    txtNome.focus();
+    notificacao.innerHTML = "Comece digitando um Nome, depois Login e por fim a Senha. (TODOS OS CAMPOS SÃO OBRIGATÓRIOS!)";
+    abrirModal(notificacao.innerHTML);
 }
 
 limparCampos();

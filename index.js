@@ -1,11 +1,14 @@
 var larguraPagina = window.innerWidth;
 var alturaPagina = window.innerHeight;
 
-var ifPagina = document.getElementById("ifPagina");
+const ifPagina = document.getElementById("ifPagina");
 
-var navBarTop = document.getElementById("navBarTop");
+const navBarTop = document.getElementById("navBarTop");
 var larguraNavBarTop = navBarTop.clientWidth;
 var alturaNavBarTop = navBarTop.clientHeight;
+
+const modal = document.getElementById("modal");
+// const modalBootstrap = new bootstrap.Modal(modal);
 
 function mostrarPagina(url) {
     ifPagina.src = url;
@@ -53,9 +56,9 @@ window.setInterval(() => {
     var dtAtual = "Hoje é " + date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
     var hrAtual = "Agora são " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
-    document.getElementById("cumprimento").innerText = cumprimento;
-    document.getElementById("data").innerText = dtAtual;
-    document.getElementById("horario").innerText = hrAtual;
+    document.getElementById("cumprimento").innerHTML = cumprimento;
+    document.getElementById("data").innerHTML = dtAtual;
+    document.getElementById("horario").innerHTML = hrAtual;
 
     redimensionarIFrame();
 }, 1000);

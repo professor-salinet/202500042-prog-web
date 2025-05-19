@@ -2,6 +2,7 @@ var domain = window.location.hostname;
 
 const fileInput = document.getElementById('fileInput');
 const imgAvatar = document.getElementById('imgAvatar');
+const notificacao = document.getElementById('notificacao');
 
 fileInput.addEventListener('change', function() {
   const file = this.files[0];
@@ -28,8 +29,8 @@ document.getElementById('frmEnviarArquivo').addEventListener('submit', async (e)
     const id = "1";
 
     if (txtNomeArquivo.value.trim().length == 0) {
-        notificacao.innerText = "É necessário preencher um nome para prosseguir!";
-        alert(notificacao.innerText);
+        notificacao.innerHTML = "É necessário preencher um nome para prosseguir!";
+        abrirModal(notificacao.innerHTML);
         txtNomeArquivo.focus();
         return false;
     }
@@ -58,23 +59,25 @@ document.getElementById('frmEnviarArquivo').addEventListener('submit', async (e)
                     body: JSON.stringify(jsonData)
                 });
 
-                const data = await response.text();
-                notificacao.textContent = data;
+                const result = await response.json();
+                notificacao.innerHTML = result.message;
+                abrirModal(notificacao.innerHTML);
             };
 
             reader.onerror = () => {
-                notificacao.innerText = 'Erro ao ler o arquivo.';
+                notificacao.innerHTML = `Erro ao ler o arquivo ${file.name}.`;
             };
 
             reader.readAsDataURL(file); // Lê o arquivo como uma URL de dados (data URL)
         } else {
-            notificacao.innerText = 'Por favor, selecione um arquivo.';
-            alert(notificacao.innerText);
+            notificacao.innerHTML = 'Por favor, selecione um arquivo.';
+            abrirModal(notificacao.innerHTML);
             fileInput.focus();
             return false;
         }
     } catch (error) {
-        notificacao.textContent = 'Ocorreu um erro ao enviar o arquivo via JSON.';
+        notificacao.innerHTML = 'Ocorreu um erro ao enviar o arquivo via JSON.';
+        abrirModal(notificacao.innerHTML);
         console.error(error);
     }
 
@@ -93,8 +96,7 @@ document.getElementById('frmEnviarArquivo').addEventListener('submit', async (e)
     // }
 
     // let msgErro = (result.error) ? " " + result.error : "";
-    // notificacao.innerText = result.message + msgErro;
-    // alert(result.message + msgErro);
+    // notificacao.innerHTML = result.message + msgErro;
 });
 
 function getFileName(filePath) {
